@@ -2,6 +2,7 @@
 using System.Linq;
 using NAudio.Wave;
 using NAudio.Mixer;
+using System.Windows.Forms;
 
 namespace VoiceRecorder.Audio
 {
@@ -59,12 +60,13 @@ namespace VoiceRecorder.Audio
             Stopped(this, EventArgs.Empty);
         }
 
-        public void BeginRecording(string waveFileName)
+        public void BeginRecording()
         {
             if (recordingState != RecordingState.Monitoring)
             {
                 throw new InvalidOperationException("Can't begin recording while we are in this state: " + recordingState.ToString());
             }
+            string waveFileName = Application.StartupPath + "\\komutlar\\komut_" + new Random().Next() + ".wav";
             writer = new WaveFileWriter(waveFileName, recordingFormat);
             recordingState = RecordingState.Recording;
         }
