@@ -65,6 +65,7 @@ namespace VoiceCatcher1
                 lblListenOk.Visible = false;
                 KomutDinleniyor = true;
                 KomutAnlasildi = false;
+                //KOMUT DİNLEME BURADA BAŞLATILACAK
             }
             else if (hassasiyet > lastPeak && KomutDinleniyor && !KomutAnlasildi)
             {
@@ -76,6 +77,7 @@ namespace VoiceCatcher1
                     lblListenOk.Visible = true;
                     KomutDinleniyor = false;
                     KomutAnlasildi = true;
+                    //KOMUT DİNLEME BURADA SONLANDIRILACAK
                 }
             }
             else
@@ -88,6 +90,7 @@ namespace VoiceCatcher1
                     lblListenOk.Visible = false;
                     KomutDinleniyor = false;
                     KomutAnlasildi = false;
+                    //DİNLEME İŞLEMİ YAPILMIYORKEN (MONİTORING AKTIFKEN) BURASI DEVREDE OLACAK HEP
                 }
             }
         }
