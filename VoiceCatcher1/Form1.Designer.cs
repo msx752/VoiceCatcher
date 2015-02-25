@@ -28,23 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.lblListen = new System.Windows.Forms.Label();
-            this.lblListenOk = new System.Windows.Forms.Label();
+            this.recLog = new System.Windows.Forms.ListView();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label1.Location = new System.Drawing.Point(329, 13);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(15, 15);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "0";
             // 
             // progressBar1
             // 
@@ -63,57 +51,37 @@
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
-            // lblListen
+            // recLog
             // 
-            this.lblListen.AutoSize = true;
-            this.lblListen.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblListen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lblListen.Location = new System.Drawing.Point(14, 106);
-            this.lblListen.Name = "lblListen";
-            this.lblListen.Size = new System.Drawing.Size(81, 17);
-            this.lblListen.TabIndex = 3;
-            this.lblListen.Text = "Dinleniyor";
-            this.lblListen.Visible = false;
-            // 
-            // lblListenOk
-            // 
-            this.lblListenOk.AutoSize = true;
-            this.lblListenOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.lblListenOk.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.lblListenOk.Location = new System.Drawing.Point(193, 106);
-            this.lblListenOk.Name = "lblListenOk";
-            this.lblListenOk.Size = new System.Drawing.Size(119, 17);
-            this.lblListenOk.TabIndex = 3;
-            this.lblListenOk.Text = "Komut Anlaşıldı";
-            this.lblListenOk.Visible = false;
+            this.recLog.Location = new System.Drawing.Point(12, 119);
+            this.recLog.Name = "recLog";
+            this.recLog.Size = new System.Drawing.Size(295, 235);
+            this.recLog.TabIndex = 3;
+            this.recLog.UseCompatibleStateImageBehavior = false;
+            this.recLog.View = System.Windows.Forms.View.Tile;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(368, 134);
-            this.Controls.Add(this.lblListenOk);
-            this.Controls.Add(this.lblListen);
+            this.ClientSize = new System.Drawing.Size(319, 366);
+            this.Controls.Add(this.recLog);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.progressBar1);
-            this.Controls.Add(this.label1);
             this.Name = "Form1";
             this.Text = "Form1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Label lblListen;
-        private System.Windows.Forms.Label lblListenOk;
+        private System.Windows.Forms.ListView recLog;
     }
 }
 
