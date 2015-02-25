@@ -40,7 +40,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
-            this.label1.Location = new System.Drawing.Point(316, 13);
+            this.label1.Location = new System.Drawing.Point(329, 13);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(15, 15);
             this.label1.TabIndex = 0;
@@ -57,9 +57,9 @@
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 43);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 42);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(300, 56);
+            this.pictureBox1.Size = new System.Drawing.Size(300, 60);
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
@@ -68,7 +68,7 @@
             this.lblListen.AutoSize = true;
             this.lblListen.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lblListen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            this.lblListen.Location = new System.Drawing.Point(9, 102);
+            this.lblListen.Location = new System.Drawing.Point(14, 106);
             this.lblListen.Name = "lblListen";
             this.lblListen.Size = new System.Drawing.Size(81, 17);
             this.lblListen.TabIndex = 3;
@@ -80,7 +80,7 @@
             this.lblListenOk.AutoSize = true;
             this.lblListenOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
             this.lblListenOk.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            this.lblListenOk.Location = new System.Drawing.Point(193, 102);
+            this.lblListenOk.Location = new System.Drawing.Point(193, 106);
             this.lblListenOk.Name = "lblListenOk";
             this.lblListenOk.Size = new System.Drawing.Size(119, 17);
             this.lblListenOk.TabIndex = 3;
@@ -91,7 +91,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(347, 362);
+            this.ClientSize = new System.Drawing.Size(368, 134);
             this.Controls.Add(this.lblListenOk);
             this.Controls.Add(this.lblListen);
             this.Controls.Add(this.pictureBox1);

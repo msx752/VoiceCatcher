@@ -9,7 +9,7 @@ namespace VoiceRecorder.Audio
     public interface IAudioRecorder
     {
         void BeginMonitoring(int recordingDevice);
-        void BeginRecording();
+        void BeginRecording(string path);
         void Stop();
         double MicrophoneLevel { get; set; }
         RecordingState RecordingState { get; }
