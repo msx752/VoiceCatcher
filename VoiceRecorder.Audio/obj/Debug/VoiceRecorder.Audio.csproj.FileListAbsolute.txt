@@ -11,3 +11,10 @@ C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\VoiceRecorder.Audio\bin\Debu
 C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\VoiceRecorder.Audio\bin\Debug\NAudio.xml
 C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\VoiceRecorder.Audio\obj\Debug\VoiceRecorder.Audio.dll
 C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\VoiceRecorder.Audio\obj\Debug\VoiceRecorder.Audio.pdb
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\VoiceRecorder.Audio\bin\Debug\VoiceRecorder.Audio.dll
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\VoiceRecorder.Audio\bin\Debug\VoiceRecorder.Audio.pdb
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\VoiceRecorder.Audio\bin\Debug\NAudio.dll
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\VoiceRecorder.Audio\bin\Debug\NAudio.xml
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\VoiceRecorder.Audio\obj\Debug\VoiceRecorder.Audio.csprojResolveAssemblyReference.cache
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\VoiceRecorder.Audio\obj\Debug\VoiceRecorder.Audio.dll
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\VoiceRecorder.Audio\obj\Debug\VoiceRecorder.Audio.pdb
