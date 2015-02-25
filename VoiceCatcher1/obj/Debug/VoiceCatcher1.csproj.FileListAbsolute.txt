@@ -7,3 +7,8 @@ C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\VoiceCatcher1\obj\Debug\Voic
 C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\VoiceCatcher1\obj\Debug\VoiceCatcher1.csproj.GenerateResource.Cache
 C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\VoiceCatcher1\obj\Debug\VoiceCatcher1.exe
 C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\VoiceCatcher1\obj\Debug\VoiceCatcher1.pdb
+C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\VoiceCatcher1\bin\Debug\VoiceRecorder.Audio.dll
+C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\VoiceCatcher1\bin\Debug\NAudio.dll
+C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\VoiceCatcher1\bin\Debug\VoiceRecorder.Audio.pdb
+C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\VoiceCatcher1\bin\Debug\NAudio.xml
+C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\VoiceCatcher1\obj\Debug\VoiceCatcher1.Form1.resources
