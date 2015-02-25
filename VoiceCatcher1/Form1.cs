@@ -114,7 +114,7 @@ namespace VoiceCatcher1
 
         public void AddLog()
         {
-            MessageBox.Show("test");
+            MessageBox.Show("test1");
         }
     }
 }
