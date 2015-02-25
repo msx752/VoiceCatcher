@@ -31,6 +31,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.lblListen = new System.Windows.Forms.Label();
+            this.lblListenOk = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,11 +63,37 @@
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
             // 
+            // lblListen
+            // 
+            this.lblListen.AutoSize = true;
+            this.lblListen.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblListen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.lblListen.Location = new System.Drawing.Point(14, 106);
+            this.lblListen.Name = "lblListen";
+            this.lblListen.Size = new System.Drawing.Size(81, 17);
+            this.lblListen.TabIndex = 3;
+            this.lblListen.Text = "Dinleniyor";
+            this.lblListen.Visible = false;
+            // 
+            // lblListenOk
+            // 
+            this.lblListenOk.AutoSize = true;
+            this.lblListenOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(162)));
+            this.lblListenOk.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.lblListenOk.Location = new System.Drawing.Point(193, 106);
+            this.lblListenOk.Name = "lblListenOk";
+            this.lblListenOk.Size = new System.Drawing.Size(119, 17);
+            this.lblListenOk.TabIndex = 3;
+            this.lblListenOk.Text = "Komut Anlaşıldı";
+            this.lblListenOk.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(368, 120);
+            this.ClientSize = new System.Drawing.Size(368, 134);
+            this.Controls.Add(this.lblListenOk);
+            this.Controls.Add(this.lblListen);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.label1);
@@ -84,6 +112,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label lblListen;
+        private System.Windows.Forms.Label lblListenOk;
     }
 }
 

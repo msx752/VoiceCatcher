@@ -16,9 +16,8 @@ namespace VoiceCatcher1
         AudioRecorder Mic = new AudioRecorder();
         float lastPeak;
         Bitmap Empty = new Bitmap(300, 60);
-        int before = 0;
         int step = 0;
-
+        int hassasiyet = 10;
         public Form1()
         {
             CheckForIllegalCrossThreadCalls = false;
@@ -33,6 +32,11 @@ namespace VoiceCatcher1
             Mic.BeginMonitoring(0);
             Mic.BeginRecording(Application.StartupPath + "\\my1.wav");
         }
+
+        bool KomutDinleniyor = false;
+        bool KomutAnlasildi = false;
+        DateTime ListenStart = new DateTime();
+        DateTime ListenStop = new DateTime();
         private void SampleAggregator_MaximumCalculated(object sender, MaxSampleEventArgs e)
         {
             lastPeak = (int)Math.Floor(Math.Max(e.MaxSample, Math.Abs(e.MinSample)) * 100);
@@ -45,8 +49,6 @@ namespace VoiceCatcher1
                 gr.Clear(Color.White);
                 step = 0;
             }
-            //Random rnd = new Random();
-            //lastPeak = rnd.Next(0, 101);
             lastPeak = (lastPeak / 100) * pictureBox1.Height;
             if (lastPeak == 0) lastPeak = 1;
             float fark = (60 - lastPeak) / 2;
@@ -55,19 +57,41 @@ namespace VoiceCatcher1
             gr.Dispose();
             pictureBox1.Refresh();
             step++;
-            //if (lastPeak > 1)
-            //else
-            //    label1.Text = "Komut Bekliyor..";
 
-            //if (Mic.RecordingState == RecordingState.Recording)
-            //    label1.Text = "Kayıt Ediyor..";
-            //else if (Mic.RecordingState == RecordingState.Stopped || Mic.RecordingState == RecordingState.RequestedStop)
-            //    label1.Text = "Kayıt Tamamlandı..";
+            if (lastPeak >= hassasiyet && !KomutDinleniyor)
+            {
+                ListenStart = DateTime.Now;
+                lblListen.Visible = true;
+                lblListenOk.Visible = false;
+                KomutDinleniyor = true;
+                KomutAnlasildi = false;
+            }
+            else if (hassasiyet > lastPeak && KomutDinleniyor && !KomutAnlasildi)
+            {
+                ListenStop = DateTime.Now;
+                TimeSpan Sure = ListenStop - ListenStart;
+                if (Sure.TotalMilliseconds >= 500)
+                {
+                    lblListen.Visible = false;
+                    lblListenOk.Visible = true;
+                    KomutDinleniyor = false;
+                    KomutAnlasildi = true;
+                }
+            }
+            else
+            {
+                DateTime IdleTime = DateTime.Now;
+                TimeSpan Sure = IdleTime - ListenStart;
+                if (Sure.TotalMilliseconds >= 2000)
+                {
+                    lblListen.Visible = false;
+                    lblListenOk.Visible = false;
+                    KomutDinleniyor = false;
+                    KomutAnlasildi = false;
+                }
+            }
         }
-        int GetX(int x)
-        {
-            return (pictureBox1.Height - x) / 2;
-        }
+
 
         private void BeginRecording(string path)
         {
