@@ -115,7 +115,7 @@ namespace VoiceCatcher1
 
         public void AddLog()
         {
-            MessageBox.Show("test");
+            // echo PHP
         }
     }
 }
