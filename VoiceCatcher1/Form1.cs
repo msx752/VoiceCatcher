@@ -115,7 +115,7 @@ namespace VoiceCatcher1
 
         public void AddLog()
         {
-            // echo ASP
+            // üsame
         }
     }
 }
