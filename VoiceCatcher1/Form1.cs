@@ -58,7 +58,7 @@ namespace VoiceCatcher1
                 KomutDinleniyor = true;
                 KomutAnlasildi = false;
                 //KOMUT DİNLEME BURADA BAŞLATILACAK
-                //Mic.BeginRecording();
+                ///////Mic.BeginRecording();
             }
             else if (hassasiyet > lastPeak && KomutDinleniyor && !KomutAnlasildi)
             {
