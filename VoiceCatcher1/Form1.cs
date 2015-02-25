@@ -113,5 +113,9 @@ namespace VoiceCatcher1
             Mic.Stop();
         }
 
+        public void AddLog()
+        {
+
+        }
     }
 }
