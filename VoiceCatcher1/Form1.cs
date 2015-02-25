@@ -43,7 +43,6 @@ namespace VoiceCatcher1
         {
             lastPeak = (int)Math.Floor(Math.Max(e.MaxSample, Math.Abs(e.MinSample)) * 100);
             progressBar1.Value = (int)lastPeak;
-            label1.Text = lastPeak.ToString();
             DrawWave();
             CallCommand();
         }
@@ -58,7 +57,7 @@ namespace VoiceCatcher1
                 KomutDinleniyor = true;
                 KomutAnlasildi = false;
                 //KOMUT DİNLEME BURADA BAŞLATILACAK
-                ///////Mic.BeginRecording();
+                //Mic.BeginRecording();
             }
             else if (hassasiyet > lastPeak && KomutDinleniyor && !KomutAnlasildi)
             {
@@ -115,7 +114,7 @@ namespace VoiceCatcher1
 
         public void AddLog()
         {
-
+            MessageBox.Show("test");
         }
     }
 }
