@@ -20,11 +20,12 @@ namespace Vave
         float lastPeak;
         Bitmap Empty = new Bitmap(300, 60);
         int step = 0;
-        int hassasiyet = 1;
+        int hassasiyet = 10;
         bool KomutDinleniyor = false;
         bool KomutAnlasildi = false;
         DateTime ListenStart = new DateTime();
         DateTime ListenStop = new DateTime();
+        bool KomutIslemiBitti = false;
         #endregion
 
         public Vave()
@@ -41,9 +42,13 @@ namespace Vave
             Mic.MicrophoneLevel = 100;
             Mic.SampleAggregator.MaximumCalculated += new EventHandler<MaxSampleEventArgs>(SampleAggregator_MaximumCalculated);
             Mic.BeginMonitoring(0);
-            ProcessImage.Image = Properties.Resources.monitoring;
+            RefreshImage(Properties.Resources.monitoring);
         }
-
+        public void RefreshImage(Bitmap bitmap)
+        {
+            ProcessImage.Image = bitmap;
+            ProcessImage.Refresh();
+        }
         private void CheckDir()
         {
         }
@@ -58,12 +63,12 @@ namespace Vave
 
         private void CallCommand()
         {
-            if (lastPeak >= hassasiyet && !KomutDinleniyor)
+            if (lastPeak >= hassasiyet && !KomutDinleniyor && !KomutIslemiBitti)
             {
                 ListenStart = DateTime.Now;
                 KomutDinleniyor = true;
                 KomutAnlasildi = false;
-                ProcessImage.Image = Properties.Resources.recording;
+                RefreshImage(Properties.Resources.recording);
                 Mic.BeginRecording();
             }
             else if (hassasiyet > lastPeak && KomutDinleniyor && !KomutAnlasildi)
@@ -74,28 +79,27 @@ namespace Vave
                 {
                     KomutDinleniyor = false;
                     KomutAnlasildi = true;
-                    ProcessImage.Image = Properties.Resources.sending;
                     //KOMUT DİNLEME BURADA SONLANDIRILACAK
                     Mic.Stop();
 
-                    requestSender GoogleSender = new requestSender();
-                    GoogleSender._dir = Application.StartupPath;
-                    string _data = GoogleSender.Send(Mic.waveFileName);
+                    requestSender._dir = Application.StartupPath;
+                    RefreshImage(Properties.Resources.sending);
+                    string _data = requestSender.Send(Mic.waveFileName);
                     DataParser(_data);
-                    //ProcessImage.Image = Properties.Resourcesdone;
+                    Mic.BeginMonitoring(0);
                 }
             }
             else
             {
                 DateTime IdleTime = DateTime.Now;
                 TimeSpan Sure = IdleTime - ListenStart;
-                if (Sure.TotalMilliseconds >= 2000)
+                if (Sure.TotalMilliseconds >= 2000 && KomutIslemiBitti)
                 {
+                    //BEKLEME DURUMU BURADAN KONTROL EDİLECEK
+                    KomutIslemiBitti = false;
                     KomutDinleniyor = false;
                     KomutAnlasildi = false;
-                    //DİNLEME İŞLEMİ YAPILMIYORKEN (MONİTORING AKTIFKEN) BURASI DEVREDE OLACAK HEP
-                    //Mic.BeginMonitoring(0);
-                    ProcessImage.Image = Properties.Resources.monitoring;
+                    RefreshImage(Properties.Resources.monitoring);
                     //AddLog("Komut bekleniyor..");
                 }
             }
@@ -103,24 +107,34 @@ namespace Vave
 
         private void DataParser(string _data)
         {
-            _data = _data.Replace("{\"result\":[]}\n{\"result\":[", "").Replace("],\"result_index\":0}", "");
-            var table = JsonConvert.DeserializeObject<Results>(_data).Alternatives;
-            //for (int i = 0; i < table.Rows.Count; i++)
-            //{
-            //    var item = table.Rows[i];
-            //    if (item.ItemArray.Count() > 1)
-            //    {
-            //        if (item.ItemArray[1].ToString() != "")
-            //        {
-            //            ResponseBox.AppendText(item.ItemArray[0].ToString() + Environment.NewLine);
-            //            //AddLog(item.ItemArray[0].ToString() + "--" + item.ItemArray[1].ToString() + System.Environment.NewLine);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        ResponseBox.AppendText(item.ItemArray[0].ToString() + Environment.NewLine);
-            //    }
-            //}
+            try
+            {
+                _data = _data.Replace("{\"result\":[]}\n{\"result\":[", "").Replace("],\"result_index\":0}", "");
+                var table = JsonConvert.DeserializeObject<Results>(_data).Alternatives;
+                for (int i = 0; i < table.Rows.Count; i++)
+                {
+                    var item = table.Rows[i];
+                    if (item.ItemArray.Count() > 1)
+                    {
+                        if (item.ItemArray[1].ToString() != "")
+                        {
+                            ResponseBox.AppendText(item.ItemArray[0].ToString() + Environment.NewLine);
+                            //AddLog(item.ItemArray[0].ToString() + "--" + item.ItemArray[1].ToString() + System.Environment.NewLine);
+                        }
+                    }
+                    else
+                    {
+                        ResponseBox.AppendText(item.ItemArray[0].ToString() + Environment.NewLine);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                RefreshImage(Properties.Resources.error);
+                AddLog(e.Message);
+                return;
+            } 
+            RefreshImage(Properties.Resources.done);
         }
 
         private void DrawWave()

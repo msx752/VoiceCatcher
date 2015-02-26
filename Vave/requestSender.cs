@@ -10,17 +10,17 @@ using CUETools.Codecs.FLAKE;
 
 namespace Vave
 {
-    public class requestSender
+    public static class requestSender
     {
-        public string _dir = Application.StartupPath;
+        public static string _dir = Application.StartupPath;
 
-        public string Send(string _filename)
+        public static string Send(string _filename)
         {
             Hashtable Properties = Initialize(_filename);
             return GoogleSpeechRequest(Properties["flac_name"].ToString(), Properties["sample_rate"].ToString());
         }
 
-        private Hashtable Initialize(string fileName)
+        private static Hashtable Initialize(string fileName)
         {
             string _wav = _dir + "\\files\\" + fileName + ".wav";
             string _flac = _dir + "\\files\\temporary.flac";
@@ -38,7 +38,7 @@ namespace Vave
                 audioDest.Write(buff);
             }
             audioDest.Close();
-
+            flakewriter.Close();
             int _sample = sampleRate;
 
             Hashtable Response = new Hashtable();
@@ -49,10 +49,10 @@ namespace Vave
             return Response;
         }
 
-        private string GoogleSpeechRequest(string _flacname, string _samplerate)
+        private static string GoogleSpeechRequest(string _flacname, string _samplerate)
         {
-            //WebRequest request = WebRequest.Create("https://www.google.com/speech-api/full-duplex/v1/up?output=json&key=AIzaSyBOti4mM-6x9WDnZIjIeyEU21OpBXqWBgw&pair=" + GenerateUnique(16) + "&lang=tr-TR&pFilter=2&maxAlternatives=10&client=chromium");
-            WebRequest request = WebRequest.Create("https://www.google.com/speech-api/v2/recognize?key=AIzaSyBOti4mM-6x9WDnZIjIeyEU21OpBXqWBgw&lang=tr-TR&pFilter=2&maxAlternatives=10");
+            WebRequest request = WebRequest.Create("https://www.google.com/speech-api/full-duplex/v1/up?output=json&key=AIzaSyBOti4mM-6x9WDnZIjIeyEU21OpBXqWBgw&pair=" + GenerateUnique(16) + "&lang=tr-TR&pFilter=2&maxAlternatives=10&client=chromium");
+            //WebRequest request = WebRequest.Create("https://www.google.com/speech-api/v2/recognize?key=AIzaSyBOti4mM-6x9WDnZIjIeyEU21OpBXqWBgw&lang=tr-TR&pFilter=2&maxAlternatives=10");
             request.Method = "POST";
             byte[] byteArray = File.ReadAllBytes(_flacname);
             request.ContentType = "audio/x-flac; rate=" + _samplerate;
