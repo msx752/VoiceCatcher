@@ -33,12 +33,12 @@
             this.MicrophoneLevel = new System.Windows.Forms.ProgressBar();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.ProcessLogBox = new System.Windows.Forms.ListView();
-            this.ProcessImage = new System.Windows.Forms.PictureBox();
             this.WaveViewer = new System.Windows.Forms.PictureBox();
+            this.ProcessImage = new System.Windows.Forms.PictureBox();
+            this.ProcessLogBox = new System.Windows.Forms.ListView();
             this.groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ProcessImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.WaveViewer)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ProcessImage)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -86,26 +86,6 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Mikrofon İstatistikleri";
             // 
-            // ProcessLogBox
-            // 
-            this.ProcessLogBox.Location = new System.Drawing.Point(414, 36);
-            this.ProcessLogBox.Margin = new System.Windows.Forms.Padding(0);
-            this.ProcessLogBox.Name = "ProcessLogBox";
-            this.ProcessLogBox.Size = new System.Drawing.Size(295, 337);
-            this.ProcessLogBox.TabIndex = 7;
-            this.ProcessLogBox.UseCompatibleStateImageBehavior = false;
-            this.ProcessLogBox.View = System.Windows.Forms.View.Tile;
-            // 
-            // ProcImage
-            // 
-
-            this.ProcessImage.ErrorImage = null;
-            this.ProcessImage.Location = new System.Drawing.Point(281, 11);
-            this.ProcessImage.Name = "ProcessImage";
-            this.ProcessImage.Size = new System.Drawing.Size(100, 100);
-            this.ProcessImage.TabIndex = 5;
-            this.ProcessImage.TabStop = false;
-            // 
             // WaveViewer
             // 
             this.WaveViewer.Location = new System.Drawing.Point(4, 48);
@@ -114,11 +94,31 @@
             this.WaveViewer.TabIndex = 4;
             this.WaveViewer.TabStop = false;
             // 
-            // Form1
+            // ProcessImage
+            // 
+            this.ProcessImage.ErrorImage = null;
+            this.ProcessImage.Location = new System.Drawing.Point(281, 11);
+            this.ProcessImage.Name = "ProcessImage";
+            this.ProcessImage.Size = new System.Drawing.Size(100, 100);
+            this.ProcessImage.TabIndex = 5;
+            this.ProcessImage.TabStop = false;
+            // 
+            // ProcessLogBox
+            // 
+            this.ProcessLogBox.Location = new System.Drawing.Point(414, 36);
+            this.ProcessLogBox.Margin = new System.Windows.Forms.Padding(0);
+            this.ProcessLogBox.Name = "ProcessLogBox";
+            this.ProcessLogBox.Size = new System.Drawing.Size(200, 337);
+            this.ProcessLogBox.TabIndex = 7;
+            this.ProcessLogBox.UseCompatibleStateImageBehavior = false;
+            this.ProcessLogBox.View = System.Windows.Forms.View.Tile;
+            this.ProcessLogBox.ItemActivate += new System.EventHandler(this.ProcessLogBox_ItemActivate);
+            // 
+            // Vave
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(722, 385);
+            this.ClientSize = new System.Drawing.Size(631, 385);
             this.Controls.Add(this.ProcessLogBox);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label2);
@@ -127,8 +127,8 @@
             this.Name = "Vave";
             this.Text = "Vave";
             this.Load += new System.EventHandler(this.Vave_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.WaveViewer)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.WaveViewer)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.ProcessImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

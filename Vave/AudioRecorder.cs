@@ -12,7 +12,7 @@ namespace Vave
         WaveIn waveIn;
         readonly SampleAggregator sampleAggregator;
         UnsignedMixerControl volumeControl;
-        double desiredVolume = 50;
+        double desiredVolume = 50;//varsayılan değer
         RecordingState recordingState;
         WaveFileWriter writer;
         WaveFormat recordingFormat;

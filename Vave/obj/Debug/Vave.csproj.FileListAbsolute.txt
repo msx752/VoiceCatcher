@@ -41,4 +41,3 @@ C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\Vave\obj\Debug\Vave.Properti
 C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\Vave\obj\Debug\Vave.csproj.GenerateResource.Cache
 C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\Vave\obj\Debug\Vave.exe
 C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\Vave\obj\Debug\Vave.pdb
-C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\Vave\obj\Debug\Vave.csprojResolveAssemblyReference.cache

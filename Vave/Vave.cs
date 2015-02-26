@@ -44,7 +44,7 @@ namespace Vave
             if (!Directory.Exists(Application.StartupPath + "\\files"))
                 Directory.CreateDirectory(Application.StartupPath + "\\files");
             WaveViewer.Image = Empty;
-            Mic.MicrophoneLevel = 100;
+            Mic.MicrophoneLevel = 99;
             Mic.SampleAggregator.MaximumCalculated += new EventHandler<MaxSampleEventArgs>(SampleAggregator_MaximumCalculated);
             Mic.BeginMonitoring(DVNumber);
             RefreshImage(Properties.Resources.monitoring);
