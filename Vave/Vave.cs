@@ -10,13 +10,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.IO;
+using NAudio.Wave;
 
 namespace Vave
 {
     public partial class Vave : Form
     {
         #region Variables
-        AudioRecorder Mic = new AudioRecorder();
+        AudioRecorder Mic;
         float lastPeak;
         Bitmap Empty = new Bitmap(300, 60);
         int step = 0;
@@ -26,6 +27,7 @@ namespace Vave
         DateTime ListenStart = new DateTime();
         DateTime ListenStop = new DateTime();
         bool KomutIslemiBitti = false;
+        public Dictionary<string, int> Mikrofonlar = new Dictionary<string, int>();
         #endregion
 
         public Vave()
@@ -36,14 +38,29 @@ namespace Vave
 
         private void Vave_Load(object sender, EventArgs e)
         {
-            Empty = new Bitmap(ProcessImage.Width, ProcessImage.Height);
+            int DVNumber = RefreshMics();//geliştirilmesi lazım
+            Mic = new AudioRecorder(DVNumber);
+            Empty = new Bitmap(WaveViewer.Width, WaveViewer.Height);
             if (!Directory.Exists(Application.StartupPath + "\\files"))
                 Directory.CreateDirectory(Application.StartupPath + "\\files");
             WaveViewer.Image = Empty;
             Mic.MicrophoneLevel = 100;
             Mic.SampleAggregator.MaximumCalculated += new EventHandler<MaxSampleEventArgs>(SampleAggregator_MaximumCalculated);
-            Mic.BeginMonitoring(0);
+            Mic.BeginMonitoring(DVNumber);
             RefreshImage(Properties.Resources.monitoring);
+        }
+        public int RefreshMics()
+        {
+            List<WaveInCapabilities> sources = new List<WaveInCapabilities>();
+            for (int i = 0; i < WaveIn.DeviceCount; i++)
+                sources.Add(WaveIn.GetCapabilities(i));
+            Mikrofonlar.Clear();
+            foreach (var source in sources)
+                Mikrofonlar.Add(source.ProductName, source.Channels);
+            for (int i = 0; i < Mikrofonlar.Count; i++)
+                return i;
+
+            return -1;
         }
         public void RefreshImage(Bitmap bitmap)
         {
@@ -101,9 +118,10 @@ namespace Vave
                     KomutDinleniyor = false;
                     KomutAnlasildi = false;
                     RefreshImage(Properties.Resources.monitoring);
-                    //AddLog("Komut bekleniyor..");
+                 
                 }
-            }
+            } 
+            //AddLog("Komut bekleniyor..");
         }
 
         private void DataParser(string _data)
@@ -176,6 +194,18 @@ namespace Vave
         {
             [JsonProperty(PropertyName = "alternative")]
             public System.Data.DataTable Alternatives { get; set; }
+        }
+
+        private void ProcessLogBox_ItemActivate(object sender, EventArgs e)
+        {
+            try
+            {
+                MessageBox.Show(ProcessLogBox.SelectedItems[0].Text.ToString());
+            }
+            catch (Exception ef)
+            {
+                
+            }
         }
     }
 }

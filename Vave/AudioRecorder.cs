@@ -12,7 +12,7 @@ namespace Vave
         WaveIn waveIn;
         readonly SampleAggregator sampleAggregator;
         UnsignedMixerControl volumeControl;
-        double desiredVolume = 100;
+        double desiredVolume = 50;
         RecordingState recordingState;
         WaveFileWriter writer;
         WaveFormat recordingFormat;
@@ -20,10 +20,11 @@ namespace Vave
 
         public event EventHandler Stopped = delegate { };
 
-        public AudioRecorder()
+        public AudioRecorder(int DeviceNumber)
         {
             sampleAggregator = new SampleAggregator();
             RecordingFormat = new WaveFormat(8000, 1);
+            //RecordingFormat = new WaveFormat(8000, WaveIn.GetCapabilities(DeviceNumber).Channels);
         }
 
         public WaveFormat RecordingFormat
@@ -50,6 +51,7 @@ namespace Vave
             waveIn.DataAvailable += OnDataAvailable;
             waveIn.RecordingStopped += OnRecordingStopped;
             waveIn.WaveFormat = recordingFormat;
+            
             waveIn.StartRecording();
             TryGetVolumeControl();
             recordingState = RecordingState.Monitoring;
