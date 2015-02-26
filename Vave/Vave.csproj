@@ -33,13 +33,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CUETools.Codecs">
-      <HintPath>..\..\..\..\..\Desktop\dependency\CUETools.Codecs.dll</HintPath>
+      <HintPath>..\Gereksinimler\CUETools.Codecs.dll</HintPath>
     </Reference>
     <Reference Include="CUETools.Codecs.FLAKE">
-      <HintPath>..\..\..\..\..\Desktop\dependency\CUETools.Codecs.FLAKE.dll</HintPath>
+      <HintPath>..\Gereksinimler\CUETools.Codecs.FLAKE.dll</HintPath>
     </Reference>
     <Reference Include="NAudio">
-      <HintPath>..\..\..\..\..\Desktop\dependency\NAudio.dll</HintPath>
+      <HintPath>..\Gereksinimler\NAudio.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\..\..\Desktop\dependency\Newtonsoft.Json.dll</HintPath>
