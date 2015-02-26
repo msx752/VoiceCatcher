@@ -36,6 +36,7 @@ namespace Vave
 
         private void Vave_Load(object sender, EventArgs e)
         {
+            Empty = new Bitmap(ProcessImage.Width, ProcessImage.Height);
             if (!Directory.Exists(Application.StartupPath + "\\files"))
                 Directory.CreateDirectory(Application.StartupPath + "\\files");
             WaveViewer.Image = Empty;
@@ -75,7 +76,7 @@ namespace Vave
             {
                 ListenStop = DateTime.Now;
                 TimeSpan Sure = ListenStop - ListenStart;
-                if (Sure.TotalMilliseconds >= 1000)
+                if (Sure.TotalMilliseconds >= 1500)
                 {
                     KomutDinleniyor = false;
                     KomutAnlasildi = true;
@@ -110,6 +111,7 @@ namespace Vave
             try
             {
                 _data = _data.Replace("{\"result\":[]}\n{\"result\":[", "").Replace("],\"result_index\":0}", "");
+                KomutIslemiBitti = true;
                 var table = JsonConvert.DeserializeObject<Results>(_data).Alternatives;
                 for (int i = 0; i < table.Rows.Count; i++)
                 {

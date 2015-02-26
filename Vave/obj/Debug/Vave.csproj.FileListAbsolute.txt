@@ -38,4 +38,3 @@ C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\Vave\bin\Debug\Newtonsoft.Js
 C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\Vave\obj\Debug\Vave.Vave.resources
 C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\Vave\obj\Debug\Vave.Properties.Resources.resources
 C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\Vave\obj\Debug\Vave.csproj.GenerateResource.Cache
-C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\Vave\obj\Debug\Vave.csprojResolveAssemblyReference.cache
