@@ -1,0 +1,10 @@
+Q:\users\A.Yachnev\My\C#\bin\Release\GoogleSpeechLib.dll
+Q:\users\A.Yachnev\My\C#\bin\Release\GoogleSpeechLib.pdb
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\GoogleSpeechLib\obj\Release\ResolveAssemblyReference.cache
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\GoogleSpeechLib\obj\Release\GoogleSpeechLib.dll
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\GoogleSpeechLib\obj\Release\GoogleSpeechLib.pdb
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\bin\Release\GoogleSpeechLib.dll
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\bin\Release\GoogleSpeechLib.pdb
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\habr\src\GoogleSpeechLib\obj\Release\ResolveAssemblyReference.cache
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\habr\src\GoogleSpeechLib\obj\Release\GoogleSpeechLib.dll
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\habr\src\GoogleSpeechLib\obj\Release\GoogleSpeechLib.pdb

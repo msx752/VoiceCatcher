@@ -1,0 +1,93 @@
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\GoogleSpeechLib\obj\Debug\ResolveAssemblyReference.cache
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\GoogleSpeechLib\bin\Debug\GoogleSpeechLib.dll
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\GoogleSpeechLib\bin\Debug\GoogleSpeechLib.pdb
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\GoogleSpeechLib\bin\Debug\CUETools.Codecs.dll
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\GoogleSpeechLib\bin\Debug\CUETools.Codecs.FLAKE.dll
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\GoogleSpeechLib\bin\Debug\CUETools.Codecs.FLAKE.pdb
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\GoogleSpeechLib\bin\Debug\CUETools.Codecs.pdb
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\GoogleSpeechLib\bin\Debug\ru-RU\CUETools.Codecs.FLAKE.resources.dll
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.dll
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.pdb
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\GoogleSpeechLib\obj\Debug\ResolveAssemblyReference.cache
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.dll
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.pdb
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\GoogleSpeechLib\bin\Debug\GoogleSpeechLib.dll
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\GoogleSpeechLib\bin\Debug\GoogleSpeechLib.pdb
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\GoogleSpeechLib\bin\Debug\CUETools.Codecs.dll
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\GoogleSpeechLib\bin\Debug\CUETools.Codecs.FLAKE.dll
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\GoogleSpeechLib\bin\Debug\CUETools.Codecs.FLAKE.pdb
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\GoogleSpeechLib\bin\Debug\CUETools.Codecs.pdb
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\GoogleSpeechLib\bin\Debug\ru-RU\CUETools.Codecs.FLAKE.resources.dll
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\GoogleSpeechLib\bin\Debug\CUETools.Flake.exe
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\GoogleSpeechLib\bin\Debug\CUETools.Flake.pdb
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\bin\Debug\GoogleSpeechLib.dll
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\bin\Debug\GoogleSpeechLib.pdb
+Q:\users\A.Yachnev\My\C#\bin\Debug\GoogleSpeechLib.dll
+Q:\users\A.Yachnev\My\C#\bin\Debug\GoogleSpeechLib.pdb
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\habr\GoogleSpeechLib\obj\Debug\ResolveAssemblyReference.cache
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\habr\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.dll
+Q:\users\A.Yachnev\My\C#\GoogleSpeech\src\habr\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.pdb
+C:\Users\MustafaSalih\Documents\bin\Debug\GoogleSpeechLib.dll
+C:\Users\MustafaSalih\Documents\bin\Debug\GoogleSpeechLib.pdb
+C:\Users\MustafaSalih\Documents\Translate\src\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.csprojResolveAssemblyReference.cache
+C:\Users\MustafaSalih\Documents\Translate\src\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.dll
+C:\Users\MustafaSalih\Documents\Translate\src\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.pdb
+C:\Users\Shujin\Desktop\bin\Debug\GoogleSpeechLib.dll
+C:\Users\Shujin\Desktop\bin\Debug\GoogleSpeechLib.pdb
+C:\Users\Shujin\Desktop\Translate\src\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.csprojResolveAssemblyReference.cache
+C:\Users\Shujin\Desktop\Translate\src\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.dll
+C:\Users\Shujin\Desktop\Translate\src\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.pdb
+C:\Users\Shujin\Desktop\Translate\bin\Debug\GoogleSpeechLib.dll
+C:\Users\Shujin\Desktop\Translate\bin\Debug\GoogleSpeechLib.pdb
+C:\Users\Shujin\Desktop\Translate\project\src\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.csprojResolveAssemblyReference.cache
+C:\Users\Shujin\Desktop\Translate\project\src\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.dll
+C:\Users\Shujin\Desktop\Translate\project\src\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.pdb
+C:\Users\MustafaSalih\Downloads\Translate\bin\Debug\GoogleSpeechLib.dll
+C:\Users\MustafaSalih\Downloads\Translate\bin\Debug\GoogleSpeechLib.pdb
+C:\Users\MustafaSalih\Downloads\Translate\project\src\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.csprojResolveAssemblyReference.cache
+C:\Users\MustafaSalih\Downloads\Translate\project\src\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.dll
+C:\Users\MustafaSalih\Downloads\Translate\project\src\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.pdb
+C:\Users\MustafaSalih\Documents\Visual Studio 2013\Projects\SesliKomut1\SesliKomut1\bin\Debug\GoogleSpeechLib.dll
+C:\Users\MustafaSalih\Documents\Visual Studio 2013\Projects\SesliKomut1\SesliKomut1\bin\Debug\GoogleSpeechLib.pdb
+C:\Users\MustafaSalih\Documents\Visual Studio 2013\Projects\SesliKomut1\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.dll
+C:\Users\MustafaSalih\Documents\Visual Studio 2013\Projects\SesliKomut1\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.pdb
+C:\Users\Shujin\Desktop\SesliKomut1\SesliKomut1\bin\Debug\GoogleSpeechLib.dll
+C:\Users\Shujin\Desktop\SesliKomut1\SesliKomut1\bin\Debug\GoogleSpeechLib.pdb
+C:\Users\Shujin\Desktop\SesliKomut1\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.csprojResolveAssemblyReference.cache
+C:\Users\Shujin\Desktop\SesliKomut1\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.dll
+C:\Users\Shujin\Desktop\SesliKomut1\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.pdb
+C:\Users\MustafaSalih\Documents\GitHub\Merep\SesliKomut1\bin\Debug\GoogleSpeechLib.dll
+C:\Users\MustafaSalih\Documents\GitHub\Merep\SesliKomut1\bin\Debug\GoogleSpeechLib.pdb
+C:\Users\MustafaSalih\Documents\GitHub\Merep\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.dll
+C:\Users\MustafaSalih\Documents\GitHub\Merep\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.pdb
+C:\Users\MustafaSalih\Documents\GitHub\Merep\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.csprojResolveAssemblyReference.cache
+C:\Users\Shujin\Documents\Visual Studio 2012\Projects\Vave\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.dll
+C:\Users\Shujin\Documents\Visual Studio 2012\Projects\Vave\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.pdb
+C:\Users\Shujin\Documents\Visual Studio 2012\Projects\Vave\GoogleSpeechLib\GoogleSpeechLib.dll
+C:\Users\Shujin\Documents\Visual Studio 2012\Projects\Vave\GoogleSpeechLib\GoogleSpeechLib.pdb
+C:\Users\Shujin\Documents\Visual Studio 2012\Projects\Vave\GoogleSpeechLib\CUETools.Codecs.dll
+C:\Users\Shujin\Documents\Visual Studio 2012\Projects\Vave\GoogleSpeechLib\CUETools.Codecs.FLAKE.dll
+C:\Users\Shujin\Documents\Visual Studio 2012\Projects\Vave\GoogleSpeechLib\NAudio.dll
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.dll
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.pdb
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\GoogleSpeechLib\GoogleSpeechLib.dll
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\GoogleSpeechLib\GoogleSpeechLib.pdb
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\GoogleSpeechLib\CUETools.Codecs.dll
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\GoogleSpeechLib\CUETools.Codecs.FLAKE.dll
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\GoogleSpeechLib\NAudio.dll
+E:\VoiceCatcher\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.csprojResolveAssemblyReference.cache
+E:\VoiceCatcher\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.dll
+E:\VoiceCatcher\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.pdb
+E:\VoiceCatcher\GoogleSpeechLib\GoogleSpeechLib.dll
+E:\VoiceCatcher\GoogleSpeechLib\GoogleSpeechLib.pdb
+E:\VoiceCatcher\GoogleSpeechLib\CUETools.Codecs.dll
+E:\VoiceCatcher\GoogleSpeechLib\CUETools.Codecs.FLAKE.dll
+E:\VoiceCatcher\GoogleSpeechLib\NAudio.dll
+C:\Users\Shujin\Documents\Visual Studio 2012\Projects\VoiceCatcher\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.csprojResolveAssemblyReference.cache
+C:\Users\Shujin\Documents\Visual Studio 2012\Projects\VoiceCatcher\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.dll
+C:\Users\Shujin\Documents\Visual Studio 2012\Projects\VoiceCatcher\GoogleSpeechLib\obj\Debug\GoogleSpeechLib.pdb
+C:\Users\Shujin\Documents\Visual Studio 2012\Projects\VoiceCatcher\GoogleSpeechLib\GoogleSpeechLib.dll
+C:\Users\Shujin\Documents\Visual Studio 2012\Projects\VoiceCatcher\GoogleSpeechLib\GoogleSpeechLib.pdb
+C:\Users\Shujin\Documents\Visual Studio 2012\Projects\VoiceCatcher\GoogleSpeechLib\CUETools.Codecs.dll
+C:\Users\Shujin\Documents\Visual Studio 2012\Projects\VoiceCatcher\GoogleSpeechLib\CUETools.Codecs.FLAKE.dll
+C:\Users\Shujin\Documents\Visual Studio 2012\Projects\VoiceCatcher\GoogleSpeechLib\NAudio.dll
