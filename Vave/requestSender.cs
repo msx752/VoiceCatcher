@@ -56,7 +56,6 @@ namespace Vave
         private static string GoogleSpeechRequest(string _flacname, string _samplerate)
         {
             
-            //WebRequest request = WebRequest.Create("https://www.google.com/speech-api/full-duplex/v1/up?output=json&key=AIzaSyBOti4mM-6x9WDnZIjIeyEU21OpBXqWBgw&pair=" + GenerateUnique(16) + "&lang=tr-TR&pFilter=2&maxAlternatives=10&client=chromium");
             WebRequest request = WebRequest.Create("https://www.google.com/speech-api/full-duplex/v1/up?key=AIzaSyBOti4mM-6x9WDnZIjIeyEU21OpBXqWBgw&pair=" + GenerateUnique(16) + "&lang=tr-TR&client=chromium&continuous&interim&pFilter=0&maxAlternatives=10");
             request.Method = "POST";
             byte[] byteArray = File.ReadAllBytes(_flacname);

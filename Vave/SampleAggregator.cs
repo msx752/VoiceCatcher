@@ -31,9 +31,7 @@ namespace Vave
             if (count >= NotificationCount && NotificationCount > 0)
             {
                 if (MaximumCalculated != null)
-                {
                     MaximumCalculated(this, new MaxSampleEventArgs(minValue, maxValue));
-                }
                 Reset();
             }
         }
