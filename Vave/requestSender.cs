@@ -12,50 +12,26 @@ namespace Vave
 {
     public static class requestSender
     {
-        public static string _dir = Application.StartupPath;
-
-
         /// <summary>
         /// Deneme
         /// </summary>
         /// <param name="_filename">Bu parametre dosya adını alır.</param>
-        public static string Send(string _filename)
+        public static string Send(FileInfo _filename)
         {
-
-            Hashtable Properties = Initialize(_filename);
-            return GoogleSpeechRequest(Properties["flac_name"].ToString(), Properties["sample_rate"].ToString());
-        }
-
-        private static Hashtable Initialize(string fileName)
-        {
-            string _wav = _dir + "\\files\\" + fileName + ".wav";
-            string _flac = _dir + "\\files\\temporary.flac";
-
+            string _flac = _filename.DirectoryName + "\\files\\temporary.flac";
             int sampleRate = 0;
-            IAudioSource audioSource = new WAVReader(_wav, null);
+            IAudioSource audioSource = new WAVReader(_filename.FullName, null);
             AudioBuffer buff = new AudioBuffer(audioSource, 0x10000);
-
             FlakeWriter flakewriter = new FlakeWriter(_flac, audioSource.PCM);
             sampleRate = audioSource.PCM.SampleRate;
-
             while (audioSource.Read(buff, -1) != 0)
-            {
                 flakewriter.Write(buff);
-            }
             flakewriter.Close();
-            int _sample = sampleRate;
-
-            Hashtable Response = new Hashtable();
-            Response.Add("wav_name", _wav);
-            Response.Add("flac_name", _flac);
-            Response.Add("sample_rate", _sample);
-
-            return Response;
+            return GoogleSpeechRequest(_flac, sampleRate);
         }
 
-        private static string GoogleSpeechRequest(string _flacname, string _samplerate)
+        private static string GoogleSpeechRequest(string _flacname, int _samplerate)
         {
-            
             WebRequest request = WebRequest.Create("https://www.google.com/speech-api/full-duplex/v1/up?key=AIzaSyBOti4mM-6x9WDnZIjIeyEU21OpBXqWBgw&pair=" + GenerateUnique(16) + "&lang=tr-TR&client=chromium&continuous&interim&pFilter=0&maxAlternatives=10");
             request.Method = "POST";
             byte[] byteArray = File.ReadAllBytes(_flacname);
@@ -71,7 +47,6 @@ namespace Vave
             reader.Close();
             dataStream.Close();
             response.Close();
-
             return responseFromServer;
         }
 

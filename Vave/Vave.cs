@@ -30,7 +30,7 @@ namespace Vave
         DateTime ListenStop = new DateTime();
         bool KomutIslemiBitti = false;
         public Dictionary<string, int> Mikrofonlar = new Dictionary<string, int>();
-        Engine eng = new Engine();//<--------
+        Engine eng = new Engine();
         #endregion
 
         public Vave()
@@ -38,17 +38,16 @@ namespace Vave
             CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
         }
+
         private GoogleJSON DeSerialize(string jsonValue)
         {
             JsonSerializerSettings serSettings = new JsonSerializerSettings();
             serSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             GoogleJSON outObject = JsonConvert.DeserializeObject<GoogleJSON>(jsonValue, serSettings);
-
             return outObject;
         }
         private void Vave_Load(object sender, EventArgs e)
         {
-
             int DVNumber = RefreshMics();//geliştirilmesi lazım
             Mic = new AudioRecorder(DVNumber);
             Empty = new Bitmap(WaveViewer.Width, WaveViewer.Height);
@@ -60,6 +59,7 @@ namespace Vave
             Mic.BeginMonitoring(DVNumber);
             RefreshImage(Properties.Resources.monitoring);
         }
+
         public int RefreshMics()
         {
             List<WaveInCapabilities> sources = new List<WaveInCapabilities>();
@@ -73,13 +73,11 @@ namespace Vave
 
             return -1;
         }
+
         public void RefreshImage(Bitmap bitmap)
         {
             ProcessImage.Image = bitmap;
             ProcessImage.Refresh();
-        }
-        private void CheckDir()
-        {
         }
 
         private void SampleAggregator_MaximumCalculated(object sender, MaxSampleEventArgs e)
@@ -109,15 +107,13 @@ namespace Vave
                 {
                     KomutDinleniyor = false;
                     KomutAnlasildi = true;
-                    //KOMUT DİNLEME BURADA SONLANDIRILACAK
                     Mic.Stop();
-
-                    requestSender._dir = Application.StartupPath;
                     RefreshImage(Properties.Resources.sending);
-                    string _data = requestSender.Send(Mic.waveFileName);
+                    string _data = requestSender.Send(Mic.waveFile);
                     DataParser(_data);
                     Mic.BeginMonitoring(0);
                     Thread.Sleep(1000);
+                    File.Delete(Mic.waveFile.FullName);
                 }
             }
             else if (KomutIslemiBitti)
@@ -170,13 +166,10 @@ namespace Vave
             try
             {
                 KomutIslemiBitti = true;
-
                 if (_data == "{\"result\":[]}\n") throw new Exception("Ne o cacık yemiş gibi yayık yayık konuşuyorsun. adamakıllı söyle de anlayalım dediğini!!");
-
                 _data = _data.Replace("_index\":0}\n", "_index\":0},").Replace("{\"result\":[]}\n", "{\"results\":[{\"result\":[]},");
                 _data = _data.Substring(0, _data.LastIndexOf("_index\":0},")) + "_index\":0}]}";
                 GoogleJSON spc = DeSerialize(_data);
-
                 bool snc = eng.CallCoommand("test");
             }
             catch (Exception e)
@@ -206,7 +199,6 @@ namespace Vave
             step++;
         }
 
-
         private void Vave_FormClosing(object sender, FormClosingEventArgs e)
         {
             Mic.Stop();
@@ -219,8 +211,6 @@ namespace Vave
             if (ProcessLogBox.Items.Count > 1)
                 ProcessLogBox.Items[ProcessLogBox.Items.Count - 1].EnsureVisible();
         }
-
-
 
         private void ProcessLogBox_ItemActivate(object sender, EventArgs e)
         {

@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Threading;
 using NAudio.Wave;
 using NAudio.Mixer;
+using System.IO;
 
 namespace Vave
 {
@@ -12,12 +13,11 @@ namespace Vave
         WaveIn waveIn;
         readonly SampleAggregator sampleAggregator;
         UnsignedMixerControl volumeControl;
-        double desiredVolume = 50;//varsayılan değer
+        double desiredVolume = 50;//varsayılan değer sonradan değişiyor.
         RecordingState recordingState;
         WaveFileWriter writer;
         WaveFormat recordingFormat;
-        public string waveFileName = "";
-
+        public FileInfo waveFile;
         public event EventHandler Stopped = delegate { };
 
         public AudioRecorder(int DeviceNumber)
@@ -70,8 +70,8 @@ namespace Vave
             {
                 //throw new InvalidOperationException("Can't begin recording while we are in this state: " + recordingState.ToString());
             }
-            waveFileName = "cmd_" + new Random().Next();
-            writer = new WaveFileWriter(Application.StartupPath + "\\files\\" + waveFileName + ".wav", recordingFormat);
+            waveFile = new FileInfo(Application.StartupPath + "\\files\\cmd_" + new Random().Next() + ".wav");
+            writer = new WaveFileWriter(waveFile.FullName, recordingFormat);
             recordingState = RecordingState.Recording;
         }
 
@@ -173,7 +173,7 @@ namespace Vave
             byte[] buffer = e.Buffer;
             int bytesRecorded = e.BytesRecorded;
 
-          
+
             long maxFileLength = this.recordingFormat.AverageBytesPerSecond * 60;
             if (recordingState == RecordingState.Recording
                 || recordingState == RecordingState.RequestedStop)
