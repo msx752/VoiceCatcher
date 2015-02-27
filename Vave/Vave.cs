@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using Newtonsoft.Json;
 using System.IO;
 using NAudio.Wave;
+using System.Runtime.Serialization;
+using Newtonsoft.Json.Serialization;
 
 namespace Vave
 {
@@ -35,9 +37,17 @@ namespace Vave
             CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
         }
+        private GoogleJSON DeSerialize(string jsonValue)
+        {
+            JsonSerializerSettings serSettings = new JsonSerializerSettings();
+            serSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            GoogleJSON outObject = JsonConvert.DeserializeObject<GoogleJSON>(jsonValue, serSettings);
 
+            return outObject;
+        }
         private void Vave_Load(object sender, EventArgs e)
         {
+
             int DVNumber = RefreshMics();//geliştirilmesi lazım
             Mic = new AudioRecorder(DVNumber);
             Empty = new Bitmap(WaveViewer.Width, WaveViewer.Height);
@@ -128,14 +138,52 @@ namespace Vave
             //AddLog("Komut bekleniyor..");
         }
 
+
+        #region DeSerializeJson CLASSES
+        class GoogleJSON
+        {
+            [JsonProperty("results")]
+            public List<Results> Results { get; set; }
+        }
+        public class Results
+        {
+            [JsonProperty("result")]
+            public List<Result> Result { get; set; }
+
+            [JsonProperty("result_index")]
+            public string Result_index { get; set; }
+        }
+        public class Result
+        {
+            [JsonProperty("alternative")]
+            public List<Alternative> Alternatives { get; set; }
+
+            [JsonProperty("stability")]
+            public string stability { get; set; }
+        }
+
+        public class Alternative
+        {
+            [JsonProperty("transcript")]
+            public string Transcript { get; set; }
+
+            [JsonProperty("confidence")]
+            public string Confidence { get; set; }
+        }
+        #endregion
+
         private void DataParser(string _data)
         {
             try
             {
-                //_data = _data.Replace("{\"result\":[]}\n{\"result\":[", "").Replace("],\"result_index\":0}", "");
+                _data = _data.Replace("_index\":0}\n", "_index\":0},")
+                    .Replace("{\"result\":[]}\n", "{\"results\":[{\"result\":[]},");
+                _data = _data.Substring(0, _data
+                    .LastIndexOf("_index\":0},")) + "_index\":0}]}";
                 KomutIslemiBitti = true;
+                GoogleJSON spc = DeSerialize(_data); //tüm veriler istisnasız işlendi
 
-                //var table = JsonConvert.DeserializeObject<Results>(_data).Alternatives;
+                //var table = JsonConvert.DeserializeObject<GoogleSpeech>(_data);
                 //for (int i = 0; i < table.Rows.Count; i++)
                 //{
                 //    var item = table.Rows[i];
@@ -195,11 +243,6 @@ namespace Vave
         }
 
 
-        public class Results
-        {
-            [JsonProperty(PropertyName = "alternative")]
-            public System.Data.DataTable Alternatives { get; set; }
-        }
 
         private void ProcessLogBox_ItemActivate(object sender, EventArgs e)
         {
