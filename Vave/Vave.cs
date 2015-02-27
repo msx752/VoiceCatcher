@@ -113,7 +113,6 @@ namespace Vave
                     DataParser(_data);
                     Mic.BeginMonitoring(0);
                     Thread.Sleep(1000);
-                    File.Delete(Mic.waveFile.FullName);
                 }
             }
             else if (KomutIslemiBitti)

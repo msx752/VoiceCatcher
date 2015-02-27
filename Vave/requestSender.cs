@@ -18,7 +18,7 @@ namespace Vave
         /// <param name="_filename">Bu parametre dosya adını alır.</param>
         public static string Send(FileInfo _filename)
         {
-            string _flac = _filename.DirectoryName + "\\files\\temporary.flac";
+            string _flac = _filename.DirectoryName + "\\temporary.flac";
             int sampleRate = 0;
             IAudioSource audioSource = new WAVReader(_filename.FullName, null);
             AudioBuffer buff = new AudioBuffer(audioSource, 0x10000);
