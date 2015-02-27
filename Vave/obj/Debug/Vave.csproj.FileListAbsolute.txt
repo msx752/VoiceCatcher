@@ -42,3 +42,16 @@ C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\Vave\bin\Debug\Newtonsoft.Js
 C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\Vave\obj\Debug\Vave.csprojResolveAssemblyReference.cache
 C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\Vave\obj\Debug\Vave.exe
 C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\Vave\obj\Debug\Vave.pdb
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\Vave\bin\Debug\Vave.exe.config
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\Vave\obj\Debug\Vave.exe
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\Vave\obj\Debug\Vave.pdb
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\Vave\bin\Debug\Vave.exe
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\Vave\bin\Debug\Vave.pdb
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\Vave\bin\Debug\CUETools.Codecs.dll
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\Vave\bin\Debug\CUETools.Codecs.FLAKE.dll
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\Vave\bin\Debug\NAudio.dll
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\Vave\bin\Debug\SoundEngine.pdb
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\Vave\obj\Debug\Vave.csprojResolveAssemblyReference.cache
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\Vave\obj\Debug\Vave.Vave.resources
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\Vave\obj\Debug\Vave.Properties.Resources.resources
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\Vave\obj\Debug\Vave.csproj.GenerateResource.Cache

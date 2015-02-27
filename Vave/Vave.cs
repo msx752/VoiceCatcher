@@ -23,7 +23,7 @@ namespace Vave
         float lastPeak;
         Bitmap Empty = new Bitmap(300, 60);
         int step = 0;
-        int hassasiyet = 10;
+        int hassasiyet = 5;
         bool KomutDinleniyor = false;
         bool KomutAnlasildi = false;
         DateTime ListenStart = new DateTime();
@@ -117,23 +117,18 @@ namespace Vave
                     string _data = requestSender.Send(Mic.waveFileName);
                     DataParser(_data);
                     Mic.BeginMonitoring(0);
+                    Thread.Sleep(1000);
                 }
             }
-            else
+            else if (KomutIslemiBitti)
             {
-                DateTime IdleTime = DateTime.Now;
-                TimeSpan Sure = IdleTime - ListenStart;
-                if (Sure.TotalMilliseconds >= 2000 && KomutIslemiBitti)
-                {
-                    //BEKLEME DURUMU BURADAN KONTROL EDİLECEK
-                    KomutIslemiBitti = false;
-                    KomutDinleniyor = false;
-                    KomutAnlasildi = false;
-                    RefreshImage(Properties.Resources.monitoring);
-
-                }
+                //DateTime IdleTime = DateTime.Now;
+                //TimeSpan Sure = IdleTime - ListenStart;
+                KomutIslemiBitti = false;
+                KomutDinleniyor = false;
+                KomutAnlasildi = false;
+                RefreshImage(Properties.Resources.monitoring);
             }
-            //AddLog("Komut bekleniyor..");
         }
 
 
@@ -174,33 +169,15 @@ namespace Vave
         {
             try
             {
-                _data = _data.Replace("_index\":0}\n", "_index\":0},")
-                    .Replace("{\"result\":[]}\n", "{\"results\":[{\"result\":[]},");
-                _data = _data.Substring(0, _data
-                    .LastIndexOf("_index\":0},")) + "_index\":0}]}";
                 KomutIslemiBitti = true;
-                GoogleJSON spc = DeSerialize(_data); //tüm veriler istisnasız işlendi
 
-                
+                if (_data == "{\"result\":[]}\n") throw new Exception("Ne o cacık yemiş gibi yayık yayık konuşuyorsun. adamakıllı söyle de anlayalım dediğini!!");
+
+                _data = _data.Replace("_index\":0}\n", "_index\":0},").Replace("{\"result\":[]}\n", "{\"results\":[{\"result\":[]},");
+                _data = _data.Substring(0, _data.LastIndexOf("_index\":0},")) + "_index\":0}]}";
+                GoogleJSON spc = DeSerialize(_data);
+
                 bool snc = eng.CallCoommand("test");
-
-                //var table = JsonConvert.DeserializeObject<GoogleSpeech>(_data);
-                //for (int i = 0; i < table.Rows.Count; i++)
-                //{
-                //    var item = table.Rows[i];
-                //    if (item.ItemArray.Count() > 1)
-                //    {
-                //        if (item.ItemArray[1].ToString() != "")
-                //        {
-                //            ResponseBox.AppendText(item.ItemArray[0].ToString() + Environment.NewLine);
-                //            //AddLog(item.ItemArray[0].ToString() + "--" + item.ItemArray[1].ToString() + System.Environment.NewLine);
-                //        }
-                //    }
-                //    else
-                //    {
-                //        ResponseBox.AppendText(item.ItemArray[0].ToString() + Environment.NewLine);
-                //    }
-                //}
             }
             catch (Exception e)
             {

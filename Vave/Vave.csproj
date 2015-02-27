@@ -110,9 +110,6 @@
     <None Include="Resources\error.png" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\SoundEngine\SoundEngine.csproj">
       <Project>{07b0ce77-c353-4845-92b5-132b4651ffca}</Project>
       <Name>SoundEngine</Name>

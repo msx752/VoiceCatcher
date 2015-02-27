@@ -55,7 +55,6 @@ namespace Vave
             waveIn.StartRecording();
             TryGetVolumeControl();
             recordingState = RecordingState.Monitoring;
-            Thread.Sleep(2000);
         }
 
         void OnRecordingStopped(object sender, StoppedEventArgs e)

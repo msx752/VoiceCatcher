@@ -2,3 +2,8 @@ C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\Vave\bin\Debug\SoundEngine.d
 C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\Vave\bin\Debug\SoundEngine.pdb
 C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\SoundEngine\obj\Debug\SoundEngine.dll
 C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\SoundEngine\obj\Debug\SoundEngine.pdb
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\Vave\bin\Debug\SoundEngine.dll
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\Vave\bin\Debug\SoundEngine.pdb
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\SoundEngine\obj\Debug\SoundEngine.csprojResolveAssemblyReference.cache
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\SoundEngine\obj\Debug\SoundEngine.dll
+C:\Users\Shujin\Documents\GitHub\VoiceCatcher\SoundEngine\obj\Debug\SoundEngine.pdb
