@@ -30,6 +30,7 @@ namespace Vave
         DateTime ListenStop = new DateTime();
         bool KomutIslemiBitti = false;
         public Dictionary<string, int> Mikrofonlar = new Dictionary<string, int>();
+        Engine eng = new Engine();//<--------
         #endregion
 
         public Vave()
@@ -89,10 +90,7 @@ namespace Vave
             CallCommand();
         }
 
-        /// <summary>
-        /// same great big long explanation again
-        /// </summary>
-        /// <parm name="x">Put a number here</param>
+
         private void CallCommand()
         {
             if (lastPeak >= hassasiyet && !KomutDinleniyor && !KomutIslemiBitti)
@@ -182,6 +180,9 @@ namespace Vave
                     .LastIndexOf("_index\":0},")) + "_index\":0}]}";
                 KomutIslemiBitti = true;
                 GoogleJSON spc = DeSerialize(_data); //tüm veriler istisnasız işlendi
+
+                
+                bool snc = eng.CallCoommand("test");
 
                 //var table = JsonConvert.DeserializeObject<GoogleSpeech>(_data);
                 //for (int i = 0; i < table.Rows.Count; i++)

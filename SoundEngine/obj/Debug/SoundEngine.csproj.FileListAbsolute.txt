@@ -1,0 +1,4 @@
+C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\Vave\bin\Debug\SoundEngine.dll
+C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\Vave\bin\Debug\SoundEngine.pdb
+C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\SoundEngine\obj\Debug\SoundEngine.dll
+C:\Users\MustafaSalih\Documents\GitHub\VoiceCatcher\SoundEngine\obj\Debug\SoundEngine.pdb

@@ -14,8 +14,14 @@ namespace Vave
     {
         public static string _dir = Application.StartupPath;
 
+
+        /// <summary>
+        /// Deneme
+        /// </summary>
+        /// <param name="_filename">Bu parametre dosya adını alır.</param>
         public static string Send(string _filename)
         {
+
             Hashtable Properties = Initialize(_filename);
             return GoogleSpeechRequest(Properties["flac_name"].ToString(), Properties["sample_rate"].ToString());
         }
