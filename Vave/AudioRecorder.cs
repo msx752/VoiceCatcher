@@ -51,7 +51,7 @@ namespace Vave
             waveIn.DataAvailable += OnDataAvailable;
             waveIn.RecordingStopped += OnRecordingStopped;
             waveIn.WaveFormat = recordingFormat;
-            
+
             waveIn.StartRecording();
             TryGetVolumeControl();
             recordingState = RecordingState.Monitoring;
@@ -173,21 +173,9 @@ namespace Vave
         {
             byte[] buffer = e.Buffer;
             int bytesRecorded = e.BytesRecorded;
-            WriteToFile(buffer, bytesRecorded);
 
-            for (int index = 0; index < e.BytesRecorded; index += 2)
-            {
-                short sample = (short)((buffer[index + 1] << 8) |
-                                        buffer[index + 0]);
-                float sample32 = sample / 32768f;
-                sampleAggregator.Add(sample32);
-            }
-        }
-
-        private void WriteToFile(byte[] buffer, int bytesRecorded)
-        {
+          
             long maxFileLength = this.recordingFormat.AverageBytesPerSecond * 60;
-
             if (recordingState == RecordingState.Recording
                 || recordingState == RecordingState.RequestedStop)
             {
@@ -200,6 +188,16 @@ namespace Vave
                 {
                     Stop();
                 }
+            }
+
+
+            //mikrofon ses seviye hesaplaması
+            for (int index = 0; index < e.BytesRecorded; index += 2)
+            {
+                short sample = (short)((buffer[index + 1] << 8) |
+                                        buffer[index + 0]);
+                float sample32 = sample / 32768f;
+                sampleAggregator.Add(sample32);
             }
         }
     }

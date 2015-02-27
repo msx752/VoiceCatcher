@@ -79,6 +79,10 @@ namespace Vave
             CallCommand();
         }
 
+        /// <summary>
+        /// same great big long explanation again
+        /// </summary>
+        /// <parm name="x">Put a number here</param>
         private void CallCommand()
         {
             if (lastPeak >= hassasiyet && !KomutDinleniyor && !KomutIslemiBitti)
@@ -118,9 +122,9 @@ namespace Vave
                     KomutDinleniyor = false;
                     KomutAnlasildi = false;
                     RefreshImage(Properties.Resources.monitoring);
-                 
+
                 }
-            } 
+            }
             //AddLog("Komut bekleniyor..");
         }
 
@@ -128,39 +132,40 @@ namespace Vave
         {
             try
             {
-                _data = _data.Replace("{\"result\":[]}\n{\"result\":[", "").Replace("],\"result_index\":0}", "");
+                //_data = _data.Replace("{\"result\":[]}\n{\"result\":[", "").Replace("],\"result_index\":0}", "");
                 KomutIslemiBitti = true;
-                var table = JsonConvert.DeserializeObject<Results>(_data).Alternatives;
-                for (int i = 0; i < table.Rows.Count; i++)
-                {
-                    var item = table.Rows[i];
-                    if (item.ItemArray.Count() > 1)
-                    {
-                        if (item.ItemArray[1].ToString() != "")
-                        {
-                            ResponseBox.AppendText(item.ItemArray[0].ToString() + Environment.NewLine);
-                            //AddLog(item.ItemArray[0].ToString() + "--" + item.ItemArray[1].ToString() + System.Environment.NewLine);
-                        }
-                    }
-                    else
-                    {
-                        ResponseBox.AppendText(item.ItemArray[0].ToString() + Environment.NewLine);
-                    }
-                }
+
+                //var table = JsonConvert.DeserializeObject<Results>(_data).Alternatives;
+                //for (int i = 0; i < table.Rows.Count; i++)
+                //{
+                //    var item = table.Rows[i];
+                //    if (item.ItemArray.Count() > 1)
+                //    {
+                //        if (item.ItemArray[1].ToString() != "")
+                //        {
+                //            ResponseBox.AppendText(item.ItemArray[0].ToString() + Environment.NewLine);
+                //            //AddLog(item.ItemArray[0].ToString() + "--" + item.ItemArray[1].ToString() + System.Environment.NewLine);
+                //        }
+                //    }
+                //    else
+                //    {
+                //        ResponseBox.AppendText(item.ItemArray[0].ToString() + Environment.NewLine);
+                //    }
+                //}
             }
             catch (Exception e)
             {
                 RefreshImage(Properties.Resources.error);
                 AddLog(e.Message);
                 return;
-            } 
+            }
             RefreshImage(Properties.Resources.done);
         }
 
         private void DrawWave()
         {
             Graphics gr = Graphics.FromImage(WaveViewer.Image);
-            if (step > 300)
+            if (step > WaveViewer.Image.Width)
             {
                 gr.Clear(Color.White);
                 step = 0;
@@ -204,7 +209,7 @@ namespace Vave
             }
             catch (Exception ef)
             {
-                
+
             }
         }
     }
