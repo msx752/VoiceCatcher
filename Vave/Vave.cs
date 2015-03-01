@@ -125,43 +125,6 @@ namespace Vave
                 RefreshImage(Properties.Resources.monitoring);
             }
         }
-
-        #region DeSerializeJson CLASSES
-        //istisnasız tüm json değişkenleri tanımlandı
-        public class GoogleJSON
-        {
-            [JsonProperty("results")]
-            public List<Results> Results { get; set; }
-        }
-        public class Results
-        {
-            [JsonProperty("result")]
-            public List<Result> Result { get; set; }
-
-            [JsonProperty("result_index")]
-            public string Result_index { get; set; }
-        }
-        public class Result
-        {
-            [JsonProperty("alternative")]
-            public List<Alternative> Alternatives { get; set; }
-
-            [JsonProperty("stability")]
-            public string Stability { get; set; }
-
-            [JsonProperty("final")]
-            public string Final { get; set; }
-        }
-        public class Alternative
-        {
-            [JsonProperty("transcript")]
-            public string Transcript { get; set; }
-
-            [JsonProperty("confidence")]
-            public string Confidence { get; set; }
-        }
-        #endregion
-
         private void DataParser(string _data)
         {
             try
@@ -207,7 +170,21 @@ namespace Vave
                     }
 
                 }
-                //bool snc = eng.CallCoommand("test");
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                //BURASI COMMAND İŞLEMİNİ TETİKLİYOR AYRI METHOD TANIMLANA BİLİR
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                List<Command> cm = eng.CallCoommand("not defteri");//şimdilik elle tanımlanıyor
+                if (cm != null)
+                {
+                    if (cm.Count == 1)
+                    {
+                        cm[0].Exec("selam nasılsın");
+                    }
+                    else
+                    {
+
+                    }
+                }
             }
             catch (Exception e)
             {

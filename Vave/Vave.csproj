@@ -57,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AudioRecorder.cs" />
+    <Compile Include="GoogleJSON.cs" />
     <Compile Include="requestSender.cs" />
     <Compile Include="SampleAggregator.cs" />
     <Compile Include="Vave.cs">
