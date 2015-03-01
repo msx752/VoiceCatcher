@@ -20,17 +20,18 @@ namespace Vave
     {
         #region Variables
         AudioRecorder Mic;
-        float lastPeak;
-        Bitmap Empty = new Bitmap(300, 60);
+        Bitmap Empty = new Bitmap(300, 60);//resim boyutunu değiştirmeyin
         int step = 0;
-        int hassasiyet = 5;
+        private float _lastPeak;
+        public float lastPeak { get { return _lastPeak; } set { _lastPeak = value; procMicrophoneLevel.Value = (int)_lastPeak; } }//mikrofon geliştirildi daha hızlı tepki veriyor
+        int hassasiyet = 10;
         bool KomutDinleniyor = false;
         bool KomutAnlasildi = false;
-        DateTime ListenStart = new DateTime();
-        DateTime ListenStop = new DateTime();
         bool KomutIslemiBitti = false;
         public Dictionary<string, int> Mikrofonlar = new Dictionary<string, int>();
         Engine eng = new Engine();
+        DateTime BitisKontrol;
+        DateTime BaslangicKontrol;
         #endregion
 
         public Vave()
@@ -46,21 +47,23 @@ namespace Vave
             GoogleJSON outObject = JsonConvert.DeserializeObject<GoogleJSON>(jsonValue, serSettings);
             return outObject;
         }
+
         private void Vave_Load(object sender, EventArgs e)
         {
+            Directory.Delete(Application.StartupPath + "\\files", true);//tüm eski ses dosyaları siliniyor
             int DVNumber = RefreshMics();//geliştirilmesi lazım
             Mic = new AudioRecorder(DVNumber);
-            Empty = new Bitmap(WaveViewer.Width, WaveViewer.Height);
+            Empty = new Bitmap(picWaveWiever.Width, picWaveWiever.Height);
             if (!Directory.Exists(Application.StartupPath + "\\files"))
                 Directory.CreateDirectory(Application.StartupPath + "\\files");
-            WaveViewer.Image = Empty;
-            Mic.MicrophoneLevel = 99;
+            picWaveWiever.Image = Empty;
+            Mic.MicrophoneLevel = 100;//değiştirilmesi tavsiye edilmez
             Mic.SampleAggregator.MaximumCalculated += new EventHandler<MaxSampleEventArgs>(SampleAggregator_MaximumCalculated);
-            Mic.BeginMonitoring(DVNumber);
+            Mic.BeginMonitoring();
             RefreshImage(Properties.Resources.monitoring);
         }
 
-        public int RefreshMics()
+        public int RefreshMics()//varsayılan olarak sistemdeki ilk mikrofon seçiliyor
         {
             List<WaveInCapabilities> sources = new List<WaveInCapabilities>();
             for (int i = 0; i < WaveIn.DeviceCount; i++)
@@ -76,49 +79,46 @@ namespace Vave
 
         public void RefreshImage(Bitmap bitmap)
         {
-            ProcessImage.Image = bitmap;
-            ProcessImage.Refresh();
+            picProcessImage.Image = bitmap;
+            picProcessImage.Refresh();
         }
-
         private void SampleAggregator_MaximumCalculated(object sender, MaxSampleEventArgs e)
         {
-            lastPeak = (int)Math.Floor(Math.Max(e.MaxSample, Math.Abs(e.MinSample)) * 100);
-            MicrophoneLevel.Value = (int)lastPeak;
-            DrawWave();
+            lastPeak = e.LastPeak;
+            if (lastPeak > hassasiyet)
+                BaslangicKontrol = DateTime.Now;
+            else
+                BitisKontrol = DateTime.Now;
             CallCommand();
+            DrawWave();
         }
 
 
         private void CallCommand()
         {
-            if (lastPeak >= hassasiyet && !KomutDinleniyor && !KomutIslemiBitti)
+            if (lastPeak >= hassasiyet && !KomutDinleniyor && !KomutIslemiBitti)//konuşma kayıtı başlatılıyor.
             {
-                ListenStart = DateTime.Now;
-                KomutDinleniyor = true;
-                KomutAnlasildi = false;
                 RefreshImage(Properties.Resources.recording);
                 Mic.BeginRecording();
+                KomutDinleniyor = true;
+                KomutAnlasildi = false;
             }
-            else if (hassasiyet > lastPeak && KomutDinleniyor && !KomutAnlasildi)
+            else if (hassasiyet > lastPeak && KomutDinleniyor && !KomutAnlasildi)//kayıt işlemi sonlandırma kontrolleri
             {
-                ListenStop = DateTime.Now;
-                TimeSpan Sure = ListenStop - ListenStart;
-                if (Sure.TotalMilliseconds >= 1500)
+                TimeSpan Sure = BitisKontrol - BaslangicKontrol;
+                if (Sure.TotalMilliseconds >= 500)//konuşma sona erdikten sonraki geçen süre hesaplanıyor
                 {
                     KomutDinleniyor = false;
                     KomutAnlasildi = true;
-                    Mic.Stop();
                     RefreshImage(Properties.Resources.sending);
-                    string _data = requestSender.Send(Mic.waveFile);
-                    DataParser(_data);
-                    Mic.BeginMonitoring(0);
-                    Thread.Sleep(1000);
+                    Mic.Stop();//bu işlem monitoring işlemide dahil olmak üzere tüm mikrofon hareketini durduruyor
+                    DataParser(requestSender.Send(Mic.waveFile));
+                    Mic.BeginMonitoring();//bu aktif edilmezse işlemler geçersiz.
                 }
             }
-            else if (KomutIslemiBitti)
+            else if (KomutIslemiBitti)//hiçbir işlem yapmıyorken
             {
-                //DateTime IdleTime = DateTime.Now;
-                //TimeSpan Sure = IdleTime - ListenStart;
+                Thread.Sleep(1000);
                 KomutIslemiBitti = false;
                 KomutDinleniyor = false;
                 KomutAnlasildi = false;
@@ -126,9 +126,9 @@ namespace Vave
             }
         }
 
-
         #region DeSerializeJson CLASSES
-        class GoogleJSON
+        //istisnasız tüm json değişkenleri tanımlandı
+        public class GoogleJSON
         {
             [JsonProperty("results")]
             public List<Results> Results { get; set; }
@@ -147,9 +147,11 @@ namespace Vave
             public List<Alternative> Alternatives { get; set; }
 
             [JsonProperty("stability")]
-            public string stability { get; set; }
-        }
+            public string Stability { get; set; }
 
+            [JsonProperty("final")]
+            public string Final { get; set; }
+        }
         public class Alternative
         {
             [JsonProperty("transcript")]
@@ -168,8 +170,44 @@ namespace Vave
                 if (_data == "{\"result\":[]}\n") throw new Exception("Ne o cacık yemiş gibi yayık yayık konuşuyorsun. adamakıllı söyle de anlayalım dediğini!!");
                 _data = _data.Replace("_index\":0}\n", "_index\":0},").Replace("{\"result\":[]}\n", "{\"results\":[{\"result\":[]},");
                 _data = _data.Substring(0, _data.LastIndexOf("_index\":0},")) + "_index\":0}]}";
-                GoogleJSON spc = DeSerialize(_data);
-                bool snc = eng.CallCoommand("test");
+                GoogleJSON speech = DeSerialize(_data);
+                lstResponseBox.Clear();
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                //bu komut şimdilik bir sonuç döndürüyor fakat stability null ve confidence null 
+                //olan değerlerde gelebiliyor duruma göre onlarda eklenmeli.
+                //hala arasından doğru olanı seçemiyoruz
+                //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                bool aranan_kan_bulundu = false;
+                foreach (var item in speech.Results)
+                {
+                    if (aranan_kan_bulundu)
+                        break;
+
+                    foreach (var item2 in item.Result)
+                    {
+                        foreach (var item3 in item2.Alternatives)
+                        {
+                            if (item3.Confidence != null)//Confidence değeri olanı ekliyoruz sonra işlem durduruluyor
+                            {
+                                lstResponseBox.Text += item3.Transcript + "\r\n";
+                                aranan_kan_bulundu = true;
+                                break;
+                            }
+                        }
+
+                        if (item2.Stability != null && !aranan_kan_bulundu)//Stability değeri olanı ekliyoruz sonra işlem durduruluyor
+                        {
+                            foreach (var item3 in item2.Alternatives)
+                            {
+                                lstResponseBox.Text += item3.Transcript + "\r\n";
+                                aranan_kan_bulundu = true;
+                                break;
+                            }
+                        }
+                    }
+
+                }
+                //bool snc = eng.CallCoommand("test");
             }
             catch (Exception e)
             {
@@ -182,19 +220,27 @@ namespace Vave
 
         private void DrawWave()
         {
-            Graphics gr = Graphics.FromImage(WaveViewer.Image);
-            if (step > WaveViewer.Image.Width)
+            Graphics gr = Graphics.FromImage(picWaveWiever.Image);
+            if (step > picWaveWiever.Image.Width)
             {
                 gr.Clear(Color.White);
                 step = 0;
             }
-            lastPeak = (lastPeak / 100) * WaveViewer.Height;
+            lastPeak = (lastPeak / 100) * picWaveWiever.Height;
             if (lastPeak == 0) lastPeak = 1;
-            float fark = ((WaveViewer.Height - lastPeak) / 2);
-            RectangleF wave = new RectangleF(new PointF(step, fark), new SizeF(1, lastPeak));
-            gr.FillRectangle(Brushes.Red, wave);
+            float fark = ((picWaveWiever.Height - lastPeak) / 2);
+            SolidBrush sb = new SolidBrush(Color.Black);
+            if (KomutDinleniyor)
+            {
+                sb.Color = Color.Blue;
+            }
+            else if (!KomutDinleniyor)
+            {
+                sb.Color = Color.Red;
+            }
+            gr.FillRectangle(sb, new RectangleF(new PointF(step, fark), new SizeF(1, lastPeak)));
             gr.Dispose();
-            WaveViewer.Refresh();
+            picWaveWiever.Refresh();
             step++;
         }
 
@@ -206,16 +252,16 @@ namespace Vave
         private void AddLog(string p)
         {
             //if (logStatus == true)
-            ProcessLogBox.Items.Add(p);
-            if (ProcessLogBox.Items.Count > 1)
-                ProcessLogBox.Items[ProcessLogBox.Items.Count - 1].EnsureVisible();
+            lstProcessLogBox.Items.Add(p);
+            if (lstProcessLogBox.Items.Count > 1)
+                lstProcessLogBox.Items[lstProcessLogBox.Items.Count - 1].EnsureVisible();
         }
 
         private void ProcessLogBox_ItemActivate(object sender, EventArgs e)
         {
             try
             {
-                MessageBox.Show(ProcessLogBox.SelectedItems[0].Text.ToString());
+                MessageBox.Show(lstProcessLogBox.SelectedItems[0].Text.ToString());
             }
             catch (Exception ef)
             {

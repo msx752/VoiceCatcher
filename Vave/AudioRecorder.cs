@@ -10,7 +10,7 @@ namespace Vave
 {
     public class AudioRecorder : IAudioRecorder
     {
-        WaveIn waveIn;
+        public WaveIn waveIn;
         readonly SampleAggregator sampleAggregator;
         UnsignedMixerControl volumeControl;
         double desiredVolume = 50;//varsayılan değer sonradan değişiyor.
@@ -19,9 +19,11 @@ namespace Vave
         WaveFormat recordingFormat;
         public FileInfo waveFile;
         public event EventHandler Stopped = delegate { };
+        public int DeviceNumber { get; set; }
 
-        public AudioRecorder(int DeviceNumber)
+        public AudioRecorder(int _DNumber)
         {
+            DeviceNumber = _DNumber;
             sampleAggregator = new SampleAggregator();
             RecordingFormat = new WaveFormat(8000, 1);
             //RecordingFormat = new WaveFormat(8000, WaveIn.GetCapabilities(DeviceNumber).Channels);
@@ -40,14 +42,14 @@ namespace Vave
             }
         }
 
-        public void BeginMonitoring(int recordingDevice)
+        public void BeginMonitoring()
         {
             if (recordingState != RecordingState.Stopped)
             {
                 //throw new InvalidOperationException("Can't begin monitoring while we are in this state: " + recordingState.ToString());
             }
             waveIn = new WaveIn();
-            waveIn.DeviceNumber = recordingDevice;
+            waveIn.DeviceNumber = DeviceNumber;
             waveIn.DataAvailable += OnDataAvailable;
             waveIn.RecordingStopped += OnRecordingStopped;
             waveIn.WaveFormat = recordingFormat;
@@ -203,7 +205,7 @@ namespace Vave
 
     public interface IAudioRecorder
     {
-        void BeginMonitoring(int recordingDevice);
+        void BeginMonitoring();
         void BeginRecording();
         void Stop();
         double MicrophoneLevel { get; set; }

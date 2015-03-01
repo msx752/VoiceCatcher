@@ -44,8 +44,10 @@ namespace Vave
         {
             MaxSample = maxValue;
             MinSample = minValue;
+            LastPeak = (int)Math.Floor(Math.Max(MaxSample, Math.Abs(MinSample)) * 100);//hepsi bir arada olsun :)
         }
         public float MaxSample { get; private set; }
         public float MinSample { get; private set; }
+        public int LastPeak { get; private set; }
     }
 }
