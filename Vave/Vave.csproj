@@ -31,6 +31,15 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Resources\audio_wave_.ico</ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup>
+    <NoWin32Manifest>true</NoWin32Manifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Vave.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CUETools.Codecs">
       <HintPath>..\Gereksinimler\CUETools.Codecs.dll</HintPath>
@@ -114,6 +123,9 @@
       <Project>{07b0ce77-c353-4845-92b5-132b4651ffca}</Project>
       <Name>SoundEngine</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\audio_wave_.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

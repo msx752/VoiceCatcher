@@ -30,6 +30,9 @@ namespace Vave
         void c_CommandEventHandler(object sender, CommandEventArgs e)
         {
             Command _sender = sender as Command;
+            //hangi nesneye işlem uygulayacağımızı buradan seçtiriyoruz
+            //daha sonra önceden belirlenmiş olan işlemi yaptırıyoruz 
+            //örn: silme,açma,kapatma vb.
             switch (_sender.COMMAND)
             {
                 case "hesap makinesi":
@@ -39,16 +42,24 @@ namespace Vave
 
                     break;
             }
+
+            _sender.State = CommandState.Stopped;//en mantıklı sonlandırma burada tanımlamak
         }
 
-
         /// <summary>
-        /// CallCoommand
+        /// sistemde kayıtlı olan komutlarla karşılaştırma yapılıyor
         /// </summary>
-        /// <param name="CallCoommand">The element type of the array</param>
-        public List<Command> CallCoommand(string _FindCommandWithText)
+        /// <param name="_FindCommandWithText">The element type of the array</param>
+        public List<Command> CallCommand(string _FindCommandWithText)
         {
-            List<Command> SONUC = cmd.FindAll(x => x.COMMAND == _FindCommandWithText || x.Description.IndexOf(_FindCommandWithText) != -1);
+            List<Command> SONUC = cmd.FindAll(x => x.COMMAND == _FindCommandWithText);
+            //if (SONUC != null)
+            //{
+            //    if (SONUC.Count == 1)
+            //    {
+            //        return SONUC;
+            //    }
+            //}
             return SONUC;
         }
     }

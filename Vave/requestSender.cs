@@ -21,12 +21,13 @@ namespace Vave
             string _flac = _filename.DirectoryName + "\\temporary.flac";
             int sampleRate = 0;
             IAudioSource audioSource = new WAVReader(_filename.FullName, null);
-            AudioBuffer buff = new AudioBuffer(audioSource, 0x10000);
+            AudioBuffer buff = new AudioBuffer(audioSource, 65536);
             FlakeWriter flakewriter = new FlakeWriter(_flac, audioSource.PCM);
             sampleRate = audioSource.PCM.SampleRate;
             while (audioSource.Read(buff, -1) != 0)
                 flakewriter.Write(buff);
             flakewriter.Close();
+            audioSource.Close();//sanırım wav dosyasına erişim hatasına neden olan şey bunun eksikliği :))))
             return GoogleSpeechRequest(_flac, sampleRate);
         }
 

@@ -16,40 +16,41 @@ namespace Vave
         {
             State = CommandState.Stopped;
         }
-        public Thread thrCommand
-        {
-            get { return thrCommand; }
-            set
-            {
-                if (thrCommand != null)
-                {
-                    thrCommand.Abort();
-                    Debug.WriteLine(string.Format("[{0}] thrCommand Sonlanmamış", this.COMMAND));
-                }
-                thrCommand = value;
-            }
-        }
 
+        //gelen yazı değerinin içerisindeki yükleme(yapılacak işe) göre
+        //buradan bir seçim yaptırıp önce işlemi belirleriz daha sonra 
+        //ney üzerinde çalışacağımızıseçtirirz.
+        public List<string> CommandType 
+        { get { return new List<string>() 
+        { "aç", "kapat", "sil", "taşı", "değiştir" }; } }
+        //////////////////////////////////////////////////////
+       
+        public Thread thrCommand { get; set; }
         public CommandState State { get; set; }
+
+        //burada açıklama yazabiliriz veya yapılacak 
+        //işlemi çağırmak için özel isim tanımlaması yapılabilir 
+        //şimdilik sadece fikir.
         public List<string> Description { get; set; }
+
+        //burada komutun ismi tanımlanır örn: hesap makinesi
         public string COMMAND { get; set; }
         public void Exec(params string[] values)
         {
-            thrCommand = new Thread(doit);
-            thrCommand.Start(values);
+            if (this.State == CommandState.Stopped)
+            {
+                thrCommand = new Thread(doit);
+                thrCommand.Start(values);
+            }
+            else if (this.State == CommandState.Running)
+                Debug.WriteLine(string.Format("[{0}] bu komut şuan meşgul durumda halen işleme devam ediyor.", this.COMMAND));
         }
         void doit(object values)
         {
-            if (this.State == CommandState.Stopped)
-            {
-                this.State = CommandState.Running;
-                CommandEventHandler(this, new CommandEventArgs(values as string[]));
-                this.State = CommandState.Stopped;
-            }
-            else if (this.State == CommandState.Busy)
-            {
-                Debug.WriteLine(string.Format("[{0}] bu komut şuan meşgul durumda halen işleme devam ediyor.", this.COMMAND));
-            }
+            this.State = CommandState.Running;//işlemin başlangıcı burası
+            CommandEventHandler(this, new CommandEventArgs(values as string[]));
+
+            this.thrCommand.Abort();
         }
         public void Dispose()
         {
@@ -59,10 +60,10 @@ namespace Vave
 
     public enum CommandState
     {
-        Running = 1,
-        Stopped = 2,
-        Busy = 3
+        Running,
+        Stopped
     }
+
 
     public class CommandEventArgs : EventArgs
     {
@@ -70,7 +71,6 @@ namespace Vave
         public CommandEventArgs(params string[] _param)
         {
             this.param = _param;
-
         }
         public string[] param { get; set; }
     }

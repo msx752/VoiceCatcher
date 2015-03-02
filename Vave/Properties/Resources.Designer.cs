@@ -61,6 +61,16 @@ namespace Vave.Properties {
         }
         
         /// <summary>
+        ///   (Simge) öğesine benzeyen System.Drawing.Icon türünde yerelleştirilmiş bir kaynak arar.
+        /// </summary>
+        internal static System.Drawing.Icon audio_wave_ {
+            get {
+                object obj = ResourceManager.GetObject("audio_wave_", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   System.Drawing.Bitmap türünde yerelleştirilmiş bir kaynak arar.
         /// </summary>
         internal static System.Drawing.Bitmap done {

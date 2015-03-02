@@ -22,7 +22,7 @@ namespace Vave
         AudioRecorder Mic;
         Bitmap Empty = new Bitmap(300, 60);//resim boyutunu değiştirmeyin
         int step = 0;
-        private float _lastPeak;
+        float _lastPeak;
         public float lastPeak { get { return _lastPeak; } set { _lastPeak = value; procMicrophoneLevel.Value = (int)_lastPeak; } }//mikrofon geliştirildi daha hızlı tepki veriyor
         int hassasiyet = 10;
         bool KomutDinleniyor = false;
@@ -39,7 +39,10 @@ namespace Vave
             CheckForIllegalCrossThreadCalls = false;
             InitializeComponent();
         }
-
+        /// <summary>
+        /// json kodu burada deserialize(nesne) yapıyoruz.
+        /// </summary>
+        /// <param name="jsonValue"></param>
         private GoogleJSON DeSerialize(string jsonValue)
         {
             JsonSerializerSettings serSettings = new JsonSerializerSettings();
@@ -63,7 +66,10 @@ namespace Vave
             RefreshImage(Properties.Resources.monitoring);
         }
 
-        public int RefreshMics()//varsayılan olarak sistemdeki ilk mikrofon seçiliyor
+        /// <summary>
+        ///  sistemeki mikrofonlar listelenip seçiliyor
+        /// </summary>
+        public int RefreshMics()
         {
             List<WaveInCapabilities> sources = new List<WaveInCapabilities>();
             for (int i = 0; i < WaveIn.DeviceCount; i++)
@@ -72,16 +78,21 @@ namespace Vave
             foreach (var source in sources)
                 Mikrofonlar.Add(source.ProductName, source.Channels);
             for (int i = 0; i < Mikrofonlar.Count; i++)
-                return i;
+                return i;//sistemdeki ilk kayıtlı mikrofon seçiliyor
 
             return -1;
         }
 
+        /// <summary>
+        /// görsel resimleri yeniler
+        /// </summary>
+        /// <param name="bitmap"></param>
         public void RefreshImage(Bitmap bitmap)
         {
             picProcessImage.Image = bitmap;
             picProcessImage.Refresh();
         }
+
         private void SampleAggregator_MaximumCalculated(object sender, MaxSampleEventArgs e)
         {
             lastPeak = e.LastPeak;
@@ -89,12 +100,14 @@ namespace Vave
                 BaslangicKontrol = DateTime.Now;
             else
                 BitisKontrol = DateTime.Now;
-            CallCommand();
+            RECORD();
             DrawWave();
         }
 
-
-        private void CallCommand()
+        /// <summary>
+        /// mikrofon kayıt başlatma, durdurma ve vb faaliyetleri tetikler
+        /// </summary>
+        private void RECORD()
         {
             if (lastPeak >= hassasiyet && !KomutDinleniyor && !KomutIslemiBitti)//konuşma kayıtı başlatılıyor.
             {
@@ -106,7 +119,7 @@ namespace Vave
             else if (hassasiyet > lastPeak && KomutDinleniyor && !KomutAnlasildi)//kayıt işlemi sonlandırma kontrolleri
             {
                 TimeSpan Sure = BitisKontrol - BaslangicKontrol;
-                if (Sure.TotalMilliseconds >= 500)//konuşma sona erdikten sonraki geçen süre hesaplanıyor
+                if (Sure.TotalMilliseconds >= 555)//konuşma sona erdikten sonraki geçen süre hesaplanıyor
                 {
                     KomutDinleniyor = false;
                     KomutAnlasildi = true;
@@ -118,19 +131,25 @@ namespace Vave
             }
             else if (KomutIslemiBitti)//hiçbir işlem yapmıyorken
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(1111);
                 KomutIslemiBitti = false;
                 KomutDinleniyor = false;
                 KomutAnlasildi = false;
                 RefreshImage(Properties.Resources.monitoring);
             }
         }
+
+        /// <summary>
+        /// sunucudan gelen yazıyı işlemeye yarayan method
+        /// </summary>
+        /// <param name="_Data"></param>
         private void DataParser(string _data)
         {
             try
             {
                 KomutIslemiBitti = true;
-                if (_data == "{\"result\":[]}\n") throw new Exception("Ne o cacık yemiş gibi yayık yayık konuşuyorsun. adamakıllı söyle de anlayalım dediğini!!");
+                if (_data == "{\"result\":[]}\n") 
+                    throw new Exception("Söylediğiniz Anlaşılmadı.");
                 _data = _data.Replace("_index\":0}\n", "_index\":0},").Replace("{\"result\":[]}\n", "{\"results\":[{\"result\":[]},");
                 _data = _data.Substring(0, _data.LastIndexOf("_index\":0},")) + "_index\":0}]}";
                 GoogleJSON speech = DeSerialize(_data);
@@ -168,23 +187,11 @@ namespace Vave
                             }
                         }
                     }
-
                 }
                 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                //BURASI COMMAND İŞLEMİNİ TETİKLİYOR AYRI METHOD TANIMLANA BİLİR
+                //BURASI ÖRNEK COMMAND İŞLEMİNİ TETİKLİYOR BURADAN HEMEN ÖNCE "GramerTX" UYGULAMASI TETİKLENMELİ YAPILACAK İŞLER BELİRLENMELİ
                 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                List<Command> cm = eng.CallCoommand("not defteri");//şimdilik elle tanımlanıyor
-                if (cm != null)
-                {
-                    if (cm.Count == 1)
-                    {
-                        cm[0].Exec("selam nasılsın");
-                    }
-                    else
-                    {
-
-                    }
-                }
+                List<Command> cm = eng.CallCommand("not defteri");//şimdilik elle tanımlanıyor
             }
             catch (Exception e)
             {
@@ -195,6 +202,9 @@ namespace Vave
             RefreshImage(Properties.Resources.done);
         }
 
+        /// <summary>
+        /// mikrofon ses efekti burada ekrana çizdiriliyor
+        /// </summary>
         private void DrawWave()
         {
             Graphics gr = Graphics.FromImage(picWaveWiever.Image);
@@ -207,15 +217,13 @@ namespace Vave
             if (lastPeak == 0) lastPeak = 1;
             float fark = ((picWaveWiever.Height - lastPeak) / 2);
             SolidBrush sb = new SolidBrush(Color.Black);
+
             if (KomutDinleniyor)
-            {
                 sb.Color = Color.Blue;
-            }
-            else if (!KomutDinleniyor)
-            {
+            else
                 sb.Color = Color.Red;
-            }
-            gr.FillRectangle(sb, new RectangleF(new PointF(step, fark), new SizeF(1, lastPeak)));
+
+            gr.FillRectangle(sb, new RectangleF(new PointF(step, fark), new SizeF(.5f, lastPeak)));
             gr.Dispose();
             picWaveWiever.Refresh();
             step++;
@@ -226,6 +234,10 @@ namespace Vave
             Mic.Stop();
         }
 
+        /// <summary>
+        /// loglama burada yapılıyor
+        /// </summary>
+        /// <param name="p"></param>
         private void AddLog(string p)
         {
             //if (logStatus == true)
