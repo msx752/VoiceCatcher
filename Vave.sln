@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vave", "Vave\Vave.csproj", "{CFB980CB-9969-406A-9596-1FAA952F8F2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SoundEngine", "SoundEngine\SoundEngine.csproj", "{07B0CE77-C353-4845-92B5-132B4651FFCA}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,12 +19,6 @@ Global
 		{CFB980CB-9969-406A-9596-1FAA952F8F2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFB980CB-9969-406A-9596-1FAA952F8F2F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CFB980CB-9969-406A-9596-1FAA952F8F2F}.Release|x86.ActiveCfg = Release|Any CPU
-		{07B0CE77-C353-4845-92B5-132B4651FFCA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{07B0CE77-C353-4845-92B5-132B4651FFCA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{07B0CE77-C353-4845-92B5-132B4651FFCA}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{07B0CE77-C353-4845-92B5-132B4651FFCA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{07B0CE77-C353-4845-92B5-132B4651FFCA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{07B0CE77-C353-4845-92B5-132B4651FFCA}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

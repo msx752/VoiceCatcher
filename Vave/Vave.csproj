@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Vave</RootNamespace>
     <AssemblyName>Vave</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -21,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>2</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -30,6 +32,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Resources\audio_wave_.ico</ApplicationIcon>
@@ -41,13 +44,17 @@
     <StartupObject>Vave.Program</StartupObject>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AxInterop.WMPLib">
+      <HintPath>..\Gereksinimler\AxInterop.WMPLib.dll</HintPath>
+    </Reference>
     <Reference Include="CUETools.Codecs">
       <HintPath>..\Gereksinimler\CUETools.Codecs.dll</HintPath>
     </Reference>
     <Reference Include="CUETools.Codecs.FLAKE">
       <HintPath>..\Gereksinimler\CUETools.Codecs.FLAKE.dll</HintPath>
     </Reference>
-    <Reference Include="NAudio">
+    <Reference Include="NAudio, Version=1.7.0.14, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Gereksinimler\NAudio.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
@@ -119,13 +126,18 @@
     <None Include="Resources\error.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SoundEngine\SoundEngine.csproj">
-      <Project>{07b0ce77-c353-4845-92b5-132b4651ffca}</Project>
-      <Name>SoundEngine</Name>
-    </ProjectReference>
+    <None Include="Resources\audio_wave_.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\audio_wave_.ico" />
+    <COMReference Include="WMPLib">
+      <Guid>{6BF52A50-394A-11D3-B153-00C04F79FAA6}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

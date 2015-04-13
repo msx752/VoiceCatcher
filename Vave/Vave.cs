@@ -13,11 +13,59 @@ using System.IO;
 using NAudio.Wave;
 using System.Runtime.Serialization;
 using Newtonsoft.Json.Serialization;
+using System.Xml;
+using WMPLib;
 
 namespace Vave
 {
     public partial class Vave : Form
     {
+
+        Dictionary<int, string> Listele = new Dictionary<int, string>();
+        public void LoadVideos()
+        {
+            string xmlpath = Application.StartupPath + "\\kayitlilar.xml";
+            List<KeyValuePair<int, string>> thisOrdered = new List<KeyValuePair<int, string>>();
+            if (!File.Exists(xmlpath))
+            {
+                MessageBox.Show(@"gerekli videolar bulunamadı \Videos\ klasörünü kontrol ediniz.");
+                #region internetten video güncellemesi
+                //XmlTextWriter createXML = new XmlTextWriter(xmlpath, UTF8Encoding.UTF8);
+                //createXML.WriteStartDocument();
+                //createXML.WriteComment("İşaret Dili Programı: http://www.cmpe.boun.edu.tr/tid/?v=(VALUE)");
+                //createXML.WriteStartElement("Kayitlar");
+                //createXML.WriteEndDocument();
+                //createXML.Close();
+
+                //XmlDocument _data = new XmlDocument();
+                //_data.Load(xmlpath);
+                //foreach (var item in thisOrdered)
+                //{
+                //    XmlElement _kelime = _data.CreateElement("kelimeid");
+                //    _kelime.SetAttribute(item.Key.ToString(), item.Value.ToLower());
+                //    _data.DocumentElement.AppendChild(_kelime);
+                //}
+                //_data.Save(xmlpath);
+                #endregion
+            }
+            else
+            {
+                XmlDocument _data = new XmlDocument();
+                _data.Load(xmlpath);
+                XmlNodeList yeniliste = _data["Kayitlar"].ChildNodes;
+                foreach (XmlNode item in yeniliste)
+                    Listele.Add(int.Parse(item.Attributes[0].Name.Substring(1)), item.Attributes[0].InnerText);
+            }
+
+            thisOrdered = Listele.OrderBy(p => p.Value).ToList();
+            foreach (var item in thisOrdered)
+            {
+                lstVideos.Items.Add(item.Value);
+                comboBox1.Items.Add(item.Value);
+                comboBox1.AutoCompleteCustomSource.Add(item.Value);
+            }
+            axWindowsMediaPlayer1.stretchToFit = true;
+        }
         #region Variables
         AudioRecorder Mic;
         Bitmap Empty = new Bitmap(300, 60);//resim boyutunu değiştirmeyin
@@ -29,7 +77,7 @@ namespace Vave
         bool KomutAnlasildi = false;
         bool KomutIslemiBitti = false;
         public Dictionary<string, int> Mikrofonlar = new Dictionary<string, int>();
-        Engine eng = new Engine();
+
         DateTime BitisKontrol;
         DateTime BaslangicKontrol;
         #endregion
@@ -53,6 +101,7 @@ namespace Vave
 
         private void Vave_Load(object sender, EventArgs e)
         {
+            LoadVideos();
             Directory.Delete(Application.StartupPath + "\\files", true);//tüm eski ses dosyaları siliniyor
             int DVNumber = RefreshMics();//geliştirilmesi lazım
             Mic = new AudioRecorder(DVNumber);
@@ -109,14 +158,14 @@ namespace Vave
         /// </summary>
         private void RECORD()
         {
-            if (lastPeak >= hassasiyet && !KomutDinleniyor && !KomutIslemiBitti)//konuşma kayıtı başlatılıyor.
+            if (btnDinle.Text == "DURDUR" && !KomutDinleniyor && !KomutIslemiBitti)//konuşma kayıtı başlatılıyor.
             {
                 RefreshImage(Properties.Resources.recording);
                 Mic.BeginRecording();
                 KomutDinleniyor = true;
                 KomutAnlasildi = false;
             }
-            else if (hassasiyet > lastPeak && KomutDinleniyor && !KomutAnlasildi)//kayıt işlemi sonlandırma kontrolleri
+            else if (btnDinle.Text == "DİNLE" && KomutDinleniyor && !KomutAnlasildi)//kayıt işlemi sonlandırma kontrolleri
             {
                 TimeSpan Sure = BitisKontrol - BaslangicKontrol;
                 if (Sure.TotalMilliseconds >= 555)//konuşma sona erdikten sonraki geçen süre hesaplanıyor
@@ -148,12 +197,13 @@ namespace Vave
             try
             {
                 KomutIslemiBitti = true;
-                if (_data == "{\"result\":[]}\n") 
+                if (_data == "{\"result\":[]}\n")
                     throw new Exception("Söylediğiniz Anlaşılmadı.");
+
                 _data = _data.Replace("_index\":0}\n", "_index\":0},").Replace("{\"result\":[]}\n", "{\"results\":[{\"result\":[]},");
                 _data = _data.Substring(0, _data.LastIndexOf("_index\":0},")) + "_index\":0}]}";
                 GoogleJSON speech = DeSerialize(_data);
-                lstResponseBox.Clear();
+                lstResponse.Items.Clear();
                 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 //bu komut şimdilik bir sonuç döndürüyor fakat stability null ve confidence null 
                 //olan değerlerde gelebiliyor duruma göre onlarda eklenmeli.
@@ -171,9 +221,9 @@ namespace Vave
                         {
                             if (item3.Confidence != null)//Confidence değeri olanı ekliyoruz sonra işlem durduruluyor
                             {
-                                lstResponseBox.Text += item3.Transcript + "\r\n";
-                                aranan_kan_bulundu = true;
-                                break;
+                                lstResponse.Items.Add(item3.Transcript);
+                                //aranan_kan_bulundu = true;
+                                //break;
                             }
                         }
 
@@ -181,9 +231,9 @@ namespace Vave
                         {
                             foreach (var item3 in item2.Alternatives)
                             {
-                                lstResponseBox.Text += item3.Transcript + "\r\n";
-                                aranan_kan_bulundu = true;
-                                break;
+                                lstResponse.Items.Add(item3.Transcript);
+                                //aranan_kan_bulundu = true;
+                                //break;
                             }
                         }
                     }
@@ -191,12 +241,11 @@ namespace Vave
                 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 //BURASI ÖRNEK COMMAND İŞLEMİNİ TETİKLİYOR BURADAN HEMEN ÖNCE "GramerTX" UYGULAMASI TETİKLENMELİ YAPILACAK İŞLER BELİRLENMELİ
                 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                List<Command> cm = eng.CallCommand("not defteri");//şimdilik elle tanımlanıyor
+                //List<Command> cm = eng.CallCommand("not defteri");//şimdilik elle tanımlanıyor
             }
             catch (Exception e)
             {
                 RefreshImage(Properties.Resources.error);
-                AddLog(e.Message);
                 return;
             }
             RefreshImage(Properties.Resources.done);
@@ -234,28 +283,100 @@ namespace Vave
             Mic.Stop();
         }
 
-        /// <summary>
-        /// loglama burada yapılıyor
-        /// </summary>
-        /// <param name="p"></param>
-        private void AddLog(string p)
-        {
-            //if (logStatus == true)
-            lstProcessLogBox.Items.Add(p);
-            if (lstProcessLogBox.Items.Count > 1)
-                lstProcessLogBox.Items[lstProcessLogBox.Items.Count - 1].EnsureVisible();
-        }
+
 
         private void ProcessLogBox_ItemActivate(object sender, EventArgs e)
         {
-            try
-            {
-                MessageBox.Show(lstProcessLogBox.SelectedItems[0].Text.ToString());
-            }
-            catch (Exception ef)
-            {
 
+        }
+
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (btnDinle.Text == "DİNLE")
+            {
+                btnDinle.Text = "DURDUR";
+                btnDinle.BackColor = Color.Green;
+            }
+            else
+            {
+                btnDinle.Text = "DİNLE";
+                btnDinle.BackColor = this.BackColor;
+            }
+
+        }
+
+        void listBox1_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            Kontrol(requestSender.TextType.VideoList);
+        }
+
+        void Kontrol(requestSender.TextType _type)
+        {
+            string myValues = "";
+            if (_type == requestSender.TextType.VideoList)
+                myValues = lstVideos.SelectedItem.ToString();
+            else if (_type == requestSender.TextType.ComboBox)
+                myValues = comboBox1.SelectedItem.ToString();
+            else if (_type == requestSender.TextType.ResponseList)
+            {
+                string deger = lstResponse.SelectedItem.ToString();
+                int index = -1;
+                for (int i = 0; i < comboBox1.Items.Count; i++)
+                {
+                    if (comboBox1.Items[i].ToString().IndexOf(deger) != -1)
+                    {
+                        index = i;
+                        break;
+                    }
+                }
+
+
+                if (index != -1)
+                {
+                    comboBox1.SelectedIndex = 0;
+                    comboBox1.SelectedIndex = index;
+                }
+                else
+                    MessageBox.Show("aranan kelime algılanamadı lütfen yukarıdan seçiniz.");
+            }
+            if (myValues == "")
+                return;
+
+            if (myValues != null)
+            {
+                int video_ID = Listele.Where(p => p.Value == myValues).ToList()[0].Key;
+                string _path = Application.StartupPath + "\\videos\\" + video_ID + ".wmv";
+                if (File.Exists(_path))
+                {
+                    IWMPMedia media = axWindowsMediaPlayer1.newMedia(_path);
+                    axWindowsMediaPlayer1.currentPlaylist.clear();
+                    axWindowsMediaPlayer1.currentPlaylist.appendItem(media);
+                    axWindowsMediaPlayer1.Ctlcontrols.play();
+                }
+                else
+                    MessageBox.Show("dosya yok");
             }
         }
+
+
+        void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Kontrol(requestSender.TextType.ComboBox);
+        }
+
+        private void lstResponse_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (lstResponse.Items.Count < 1 || lstResponse.SelectedIndex == -1)
+                return;
+            Kontrol(requestSender.TextType.ResponseList);
+        }
+
+        private void Vave_Resize(object sender, EventArgs e)
+        {
+            this.Width = 850; 
+            this.Height = 540;
+        }
+
     }
 }

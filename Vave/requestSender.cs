@@ -12,6 +12,13 @@ namespace Vave
 {
     public static class requestSender
     {
+        public enum TextType
+        {
+            ComboBox = 1,
+            VideoList = 2,
+            ResponseList = 3
+        }
+
         /// <summary>
         /// Deneme
         /// </summary>
